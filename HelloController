@@ -1,0 +1,160 @@
+package com.example.stickkyyheeerooo;
+import javafx.animation.TranslateTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.scene.shape.Circle;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+
+import javax.swing.*;
+
+
+public class HelloController {
+    @FXML
+    private Label welcomeText;
+
+    private Stage stage;
+    private Scene scene;
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
+    }
+
+    @FXML
+    private Rectangle rl;
+    @FXML
+    private Rectangle rr;
+    @FXML
+    private ImageView as;
+    @FXML
+    public Button sb;
+    @FXML
+    public ImageView laura;
+    @FXML
+    public Text blink;
+
+    @FXML
+    public Text blinker;
+
+    public boolean elop = true;
+
+    public void blink_kar(){
+        while (elop){
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), blink);
+            fadeTransition.setFromValue(1.0);
+            fadeTransition.setToValue(0);
+            fadeTransition.setCycleCount(FadeTransition.INDEFINITE);
+            fadeTransition.play();
+        }
+    }
+
+    public void neeche_jaa(ActionEvent e){
+        elop = false;
+        TranslateTransition fuckyou = new TranslateTransition();
+        TranslateTransition fy2 = new TranslateTransition();
+        TranslateTransition fy3 = new TranslateTransition();
+        fy2.setDuration(Duration.millis(1000));
+        fuckyou.setDuration(Duration.millis(1000));
+        fuckyou.setNode(rl);
+        fuckyou.setFromY(0);
+        fuckyou.setToY(140);
+        fuckyou.play();
+        fy2.setNode(rr);
+        fy2.setToY(-127);
+        fy2.play();
+        fy3.setDuration(Duration.millis(1000));
+        fy3.setNode(as);
+        fy3.setFromY(0);
+        fy3.setToY(140);
+        fy3.play();
+        sb.setDisable(true);
+        laura.setOpacity(0);
+        blink.setOpacity(1);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), blink);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0);
+        fadeTransition.setCycleCount(4);
+        fadeTransition.play();
+        FadeTransition fadeTransitions = new FadeTransition(Duration.seconds(1), blinker);
+        fadeTransitions.setFromValue(1.0);
+        fadeTransitions.setToValue(0);
+        fadeTransitions.setCycleCount(1);
+        fadeTransitions.play();
+    }
+    public void switch_start(ActionEvent e) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("nayihaiyaar.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+
+    public void switch_play(ActionEvent e) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayGame.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+
+    public void switch_score(ActionEvent e) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ForScore.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+}
