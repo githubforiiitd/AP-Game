@@ -3,7 +3,27 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import java.util.Random;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.paint.Color;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.event.ActionEvent;
 import javafx.scene.shape.Circle;
 import java.io.FileInputStream;
@@ -75,22 +95,25 @@ public class HelloController {
     public Text blink;
 
     @FXML
+    private Pane painal;
+    @FXML
     public Text blinker;
 
-    public boolean elop = true;
+    int widthy = 71;
 
-    public void blink_kar(){
-        while (elop){
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), blink);
-            fadeTransition.setFromValue(1.0);
-            fadeTransition.setToValue(0);
-            fadeTransition.setCycleCount(FadeTransition.INDEFINITE);
-            fadeTransition.play();
-        }
-    }
+    @FXML
+    public Rectangle stick;
+
+    @FXML
+    public Rectangle left_waala;
+
+
+
+    Random random = new Random();
+
+
 
     public void neeche_jaa(ActionEvent e){
-        elop = false;
         TranslateTransition fuckyou = new TranslateTransition();
         TranslateTransition fy2 = new TranslateTransition();
         TranslateTransition fy3 = new TranslateTransition();
@@ -99,16 +122,21 @@ public class HelloController {
         fuckyou.setNode(rl);
         fuckyou.setFromY(0);
         fuckyou.setToY(140);
+        fuckyou.setFromX(0);
+        fuckyou.setToX(-300);
+
         fuckyou.play();
         fy2.setNode(rr);
         fy2.setToY(-127);
+        fy2.setFromX(0);
+        fy2.setToX(-329);
         fy2.play();
         fy3.setDuration(Duration.millis(1000));
         fy3.setNode(as);
         fy3.setFromY(0);
         fy3.setToY(140);
         fy3.play();
-        sb.setDisable(true);
+//        sb.setDisable(true);
         laura.setOpacity(0);
         blink.setOpacity(1);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), blink);
@@ -121,7 +149,33 @@ public class HelloController {
         fadeTransitions.setToValue(0);
         fadeTransitions.setCycleCount(1);
         fadeTransitions.play();
+        int spacing = random.nextInt(28,464-(36+widthy+28));
+        Rectangle xyz = create_rectangle(spacing);
+        left_waala = xyz;
+        TranslateTransition xxx = new TranslateTransition();
+        xxx.setDuration(Duration.millis(1000));
+        xxx.setNode(xyz);
+        xxx.setFromX(0);
+        xxx.setToX(-(514+32-(36+widthy+28+spacing)));
+        xxx.play();
     }
+    public void chal_khel(){
+
+        TranslateTransition fuckyou = new TranslateTransition();
+        fuckyou.setDuration(Duration.millis(1000));
+        fuckyou.setNode(left_waala);
+        fuckyou.setFromX(0);
+        fuckyou.setToX(-300);
+        int spacing = random.nextInt(28,464-(36+widthy+28));
+        Rectangle xyz = create_rectangle(spacing);
+        TranslateTransition xxx = new TranslateTransition();
+        xxx.setDuration(Duration.millis(1000));
+        xxx.setNode(xyz);
+        xxx.setFromX(0);
+        xxx.setToX(-(514+32-(36+widthy+28+spacing)));
+        xxx.play();
+    }
+
     public void switch_start(ActionEvent e) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("nayihaiyaar.fxml"));
@@ -157,4 +211,17 @@ public class HelloController {
             ex.printStackTrace(); // Handle the exception appropriately
         }
     }
+
+    public Rectangle create_rectangle(int spacing){
+//        int width = random.nextInt((int)(200)) + 22;
+//        int spacing = random.nextInt(28,464-(36+widthy+28));
+        int w2 = random.nextInt(28,464-(36+widthy+28+spacing));
+        int layx = 514;
+        Rectangle rectangle = new Rectangle(514,606,w2,253);
+        rectangle.setFill(Color.web("#801c1c"));
+        painal.getChildren().add(rectangle);
+        widthy = w2;
+        return rectangle;
+    }
+
 }
