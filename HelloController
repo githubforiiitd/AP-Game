@@ -99,15 +99,18 @@ public class HelloController {
     @FXML
     public Text blinker;
 
-    int widthy = 71;
+    public int widthy = 71;
 
     @FXML
     public Rectangle stick;
 
     @FXML
-    public Rectangle left_waala;
+    public Rectangle left_waala = rl;
 
+    int last_right_kaX= 0 ;
 
+    @FXML
+    public Rectangle right_wala = rr;
 
     Random random = new Random();
 
@@ -122,14 +125,11 @@ public class HelloController {
         fuckyou.setNode(rl);
         fuckyou.setFromY(0);
         fuckyou.setToY(140);
-        fuckyou.setFromX(0);
-        fuckyou.setToX(-300);
-
         fuckyou.play();
         fy2.setNode(rr);
         fy2.setToY(-127);
         fy2.setFromX(0);
-        fy2.setToX(-329);
+        fy2.setToX(140);
         fy2.play();
         fy3.setDuration(Duration.millis(1000));
         fy3.setNode(as);
@@ -151,21 +151,36 @@ public class HelloController {
         fadeTransitions.play();
         int spacing = random.nextInt(28,464-(36+widthy+28));
         Rectangle xyz = create_rectangle(spacing);
-        left_waala = xyz;
         TranslateTransition xxx = new TranslateTransition();
         xxx.setDuration(Duration.millis(1000));
         xxx.setNode(xyz);
         xxx.setFromX(0);
         xxx.setToX(-(514+32-(36+widthy+28+spacing)));
         xxx.play();
+        left_waala = rl;
+        right_wala = xyz;
+        last_right_kaX = (-(514+32-(36+widthy+28+spacing)));
     }
-    public void chal_khel(){
+    public void chal_khel(ActionEvent e){
+        // Left wale ko screen se bahar phekega
+        TranslateTransition betic = new TranslateTransition();
+        betic.setDuration(Duration.millis(1000));
+        betic.setNode(left_waala);
+        betic.setFromX(36-(int)left_waala.getX());
+        betic.setToX(-300-(int)left_waala.getX());
+        betic.play();
 
-        TranslateTransition fuckyou = new TranslateTransition();
-        fuckyou.setDuration(Duration.millis(1000));
-        fuckyou.setNode(left_waala);
-        fuckyou.setFromX(0);
-        fuckyou.setToX(-300);
+        // Right wale ko left jagah pe daalega
+        TranslateTransition PKMB = new TranslateTransition();
+        PKMB.setDuration(Duration.millis(1000));
+        PKMB.setNode(right_wala);
+        int rx = (int)right_wala.getX();
+        PKMB.setFromX(last_right_kaX);
+        PKMB.setToX(36-rx);
+        PKMB.play();
+        left_waala = right_wala;
+
+        // Enters new Rect
         int spacing = random.nextInt(28,464-(36+widthy+28));
         Rectangle xyz = create_rectangle(spacing);
         TranslateTransition xxx = new TranslateTransition();
@@ -173,7 +188,9 @@ public class HelloController {
         xxx.setNode(xyz);
         xxx.setFromX(0);
         xxx.setToX(-(514+32-(36+widthy+28+spacing)));
+        last_right_kaX = (-(514+32-(36+widthy+28+spacing)));
         xxx.play();
+        right_wala = xyz;
     }
 
     public void switch_start(ActionEvent e) {
