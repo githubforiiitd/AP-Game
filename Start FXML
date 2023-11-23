@@ -8,13 +8,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="859.0" maxWidth="483.0" minHeight="859.0" minWidth="483.0" prefHeight="859.0" prefWidth="483.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickkyyheeerooo.HelloController">
+<AnchorPane fx:id="painal" maxHeight="859.0" maxWidth="483.0" minHeight="859.0" minWidth="483.0" prefHeight="859.0" prefWidth="483.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickkyyheeerooo.HelloController">
    <children>
       <ImageView fitHeight="859.0" fitWidth="483.0">
          <image>
             <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/wp4826982.jpg" />
          </image>
       </ImageView>
+      <Rectangle fx:id="stick" arcWidth="5.0" fill="#22ff1f" height="0.0" layoutX="117.3" layoutY="406.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.3" width="5.0" />
       <Rectangle id="1" fx:id="rl" arcWidth="5.0" fill="#801c1c" height="393.0" layoutX="36.0" layoutY="466.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
       <Rectangle id="2" fx:id="rr" arcWidth="5.0" fill="#801c1c" height="393.0" layoutX="365.0" layoutY="593.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="71.0" y="140.0" />
       <ImageView fx:id="as" fitHeight="46.0" fitWidth="44.0" layoutX="65.0" layoutY="425.0">
@@ -27,7 +28,6 @@
             <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/6b6c7902db594434bd7b4a3a75434fa2.png" />
          </image>
       </ImageView>
-      <Button fx:id="sb" layoutX="177.0" layoutY="595.0" mnemonicParsing="false" onAction="#neeche_jaa" opacity="0.0" prefHeight="73.0" prefWidth="140.0" text="Start_button" />
       <Text fx:id="blink" layoutX="182.0" layoutY="158.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Best of luck!!">
          <font>
             <Font size="24.0" />
@@ -38,5 +38,6 @@
             <Font size="69.0" />
          </font>
       </Text>
+      <Button fx:id="sb" layoutX="177.0" layoutY="595.0" mnemonicParsing="false" onAction="#neeche_jaa" opacity="0.0" prefHeight="73.0" prefWidth="140.0" text="Start_button" />
    </children>
 </AnchorPane>
