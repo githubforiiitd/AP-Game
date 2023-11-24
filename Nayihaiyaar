@@ -39,5 +39,7 @@
          </font>
       </Text>
       <Button fx:id="sb" layoutX="177.0" layoutY="595.0" mnemonicParsing="false" onAction="#neeche_jaa" opacity="0.0" prefHeight="73.0" prefWidth="140.0" text="Start_button" />
+      <Rectangle fx:id="bridge_stick" fill="DODGERBLUE" layoutX="36.0" layoutY="606.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.5" />
+      <Button fx:id="play_button" disable="true" layoutX="-1.0" layoutY="117.0" mnemonicParsing="false" onAction="#play" opacity="0.0" prefHeight="743.0" prefWidth="485.0" text="Button" />
    </children>
 </AnchorPane>
