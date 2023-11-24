@@ -223,7 +223,6 @@ public class HelloController {
         );
         increaseTimeline.setCycleCount(Timeline.INDEFINITE);
 
-        // Set up KeyPressed and KeyReleased events
         bridge_stick.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.SPACE) {
                 increaseTimeline.play();
@@ -236,7 +235,6 @@ public class HelloController {
                 increaseTimeline.stop();
                 rotate_the_stick();
                 chal_khel();
-                // Perform any other actions when the space bar is released
             }
         });
     }
@@ -255,18 +253,15 @@ public class HelloController {
     public void rotate_the_stick(){
         // Calculate the left edge coordinates
         double leftEdgeX = bridge_stick.getX();
-        double leftEdgeY = bridge_stick.getY() + bridge_stick.getHeight() / 2; // Use the center for the pivot
+        double leftEdgeY = bridge_stick.getY() + bridge_stick.getHeight()/2; 
 
-        // Set up a TranslateTransition to move the rectangle to the left edge
         TranslateTransition translateTransition = new TranslateTransition(Duration.ZERO, bridge_stick);
         translateTransition.setToX(leftEdgeX);
         translateTransition.setToY(leftEdgeY);
 
-        // Set up a RotateTransition
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), bridge_stick);
-        rotateTransition.setByAngle(90); // Rotate by 90 degrees
+        rotateTransition.setByAngle(90); 
 
-        // Sequentially play the translate and rotate transitions
         translateTransition.setOnFinished(event -> rotateTransition.play());
         translateTransition.play();
     }
