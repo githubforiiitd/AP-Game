@@ -7,7 +7,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import javafx.animation.RotateTransition;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import java.util.Random;
+import javafx.animation.RotateTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
@@ -40,6 +44,14 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.stage.Stage;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -109,11 +121,16 @@ public class HelloController {
 
     int last_right_kaX= 0 ;
 
+    private Timeline increaseTimeline;
     @FXML
     public Rectangle right_wala = rr;
 
-    Random random = new Random();
+    @FXML
+    public Button play_button;
 
+    @FXML
+    public Rectangle bridge_stick;
+    Random random = new Random();
 
 
     public void neeche_jaa(ActionEvent e){
@@ -136,7 +153,8 @@ public class HelloController {
         fy3.setFromY(0);
         fy3.setToY(140);
         fy3.play();
-//        sb.setDisable(true);
+        sb.setDisable(true);
+        play_button.setDisable(false);
         laura.setOpacity(0);
         blink.setOpacity(1);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), blink);
@@ -161,7 +179,7 @@ public class HelloController {
         right_wala = xyz;
         last_right_kaX = (-(514+32-(36+widthy+28+spacing)));
     }
-    public void chal_khel(ActionEvent e){
+    public void chal_khel(){
         // Left wale ko screen se bahar phekega
         TranslateTransition betic = new TranslateTransition();
         betic.setDuration(Duration.millis(1000));
@@ -192,6 +210,67 @@ public class HelloController {
         xxx.play();
         right_wala = xyz;
     }
+
+
+    public void play(){
+        bridge_stick.requestFocus();
+        bridge_stick.setFocusTraversable(true);
+        bridge_stick.setX(left_waala.getWidth()-5);
+        increaseTimeline = new Timeline(
+                new KeyFrame(Duration.millis(50), event -> {
+                    increase_bridge_stick();
+                })
+        );
+        increaseTimeline.setCycleCount(Timeline.INDEFINITE);
+
+        // Set up KeyPressed and KeyReleased events
+        bridge_stick.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.SPACE) {
+                increaseTimeline.play();
+
+            }
+        });
+
+        bridge_stick.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.SPACE) {
+                increaseTimeline.stop();
+                rotate_the_stick();
+                chal_khel();
+                // Perform any other actions when the space bar is released
+            }
+        });
+    }
+
+
+    public void increase_bridge_stick(){
+        bridge_stick.setHeight(bridge_stick.getHeight()+5);
+        bridge_stick.setY(bridge_stick.getY()-5);
+    }
+
+    public void reset_posi(){
+        bridge_stick.setY(0);
+        bridge_stick.setHeight(0);
+    }
+
+    public void rotate_the_stick(){
+        // Calculate the left edge coordinates
+        double leftEdgeX = bridge_stick.getX();
+        double leftEdgeY = bridge_stick.getY() + bridge_stick.getHeight() / 2; // Use the center for the pivot
+
+        // Set up a TranslateTransition to move the rectangle to the left edge
+        TranslateTransition translateTransition = new TranslateTransition(Duration.ZERO, bridge_stick);
+        translateTransition.setToX(leftEdgeX);
+        translateTransition.setToY(leftEdgeY);
+
+        // Set up a RotateTransition
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), bridge_stick);
+        rotateTransition.setByAngle(90); // Rotate by 90 degrees
+
+        // Sequentially play the translate and rotate transitions
+        translateTransition.setOnFinished(event -> rotateTransition.play());
+        translateTransition.play();
+    }
+
 
     public void switch_start(ActionEvent e) {
         try {
@@ -230,8 +309,6 @@ public class HelloController {
     }
 
     public Rectangle create_rectangle(int spacing){
-//        int width = random.nextInt((int)(200)) + 22;
-//        int spacing = random.nextInt(28,464-(36+widthy+28));
         int w2 = random.nextInt(28,464-(36+widthy+28+spacing));
         int layx = 514;
         Rectangle rectangle = new Rectangle(514,606,w2,253);
