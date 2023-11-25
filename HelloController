@@ -8,6 +8,25 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
+
+import javafx.animation.PathTransition;
+
+import javafx.animation.Interpolator;
+
+import javafx.fxml.FXML;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +41,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.animation.RotateTransition;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import javafx.animation.RotateTransition;
+import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import java.util.Random;
@@ -259,12 +282,32 @@ public class HelloController {
         bridge_stick.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.SPACE) {
                 increaseTimeline.stop();
-                chal_khel();
-                reset_posi();
+//                chal_khel();
+//                reset_posi();
+                rotate_the_stick();
+                if (check_collision()){
+                    chal_khel();
+                }
             }
         });
     }
 
+    public boolean check_collision(){
+        System.out.println("left spacing");
+        System.out.println(33.5+left_waala.getWidth() + bridge_stick.getHeight());
+        System.out.println("Right spacing");
+        System.out.println(514-(last_right_kaX*-1));
+        int terimaki = 514-(last_right_kaX*-1);
+        if ((33.5+left_waala.getWidth() + bridge_stick.getHeight() >= terimaki) && 33.5+left_waala.getWidth() + bridge_stick.getHeight() <= terimaki + right_wala.getWidth()){
+            System.out.println("true hai bhai, player ho aap");
+            reset_posi();
+            return true;
+        }
+        else{
+            System.out.println("Naalayak, bartan dho");
+            return false;
+        }
+    }
 
     public void button_hover(){
         laura.setOpacity(0.5);
@@ -282,7 +325,12 @@ public class HelloController {
 
 
     public void reset_posi(){
-        bridge_stick.setRotate(0);
+        Rotate r1 = new Rotate();
+        r1.setPivotX(bridge_stick.getX());
+        r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
+        bridge_stick.getTransforms().add(r1);
+        r1.setAngle(270);
+
         bridge_stick.setY(0);
         bridge_stick.setX(left_waala.getWidth()-2.5);
         bridge_stick.setHeight(0);
@@ -290,21 +338,14 @@ public class HelloController {
 
 
     public void rotate_the_stick(){
-        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), bridge_stick);
-        rotateTransition.setByAngle(90);
-        rotateTransition.play();
-
-        TranslateTransition transonx = new TranslateTransition(Duration.seconds(1), bridge_stick);
-        transonx.setToX(bridge_stick.getHeight()/2);
-        transonx.play();
-
-        TranslateTransition transony = new TranslateTransition(Duration.seconds(1), bridge_stick);
-        transony.setToY((bridge_stick.getHeight()/2));
-        transony.play();
-
-        ParallelTransition parallelTransition = new ParallelTransition(transonx, rotateTransition, transony);
-        parallelTransition.play();
+        // Create a RotateTransition
+        Rotate r1 = new Rotate();
+        r1.setPivotX(bridge_stick.getX());
+        r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
+        bridge_stick.getTransforms().add(r1);
+        r1.setAngle(90);
     }
+
 
 
     public void switch_start(ActionEvent e) {
