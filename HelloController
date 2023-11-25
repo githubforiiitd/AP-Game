@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -176,11 +177,73 @@ public class HelloController {
     public Button play_button;
 
     @FXML
+    public Text scored;
+
+    public int score = 0;
+    public int high_score = 0;
+
+    @FXML
     public Rectangle bridge_stick;
+
+    @FXML
+    public Label Scorebata;
+    @FXML
+    public Label highsc;
     Random random = new Random();
 
 
+
+    public void Skore_badha(){
+        score += 1;
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1.2), scored);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.2), scored);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+
+        SequentialTransition sequentialTransition = new SequentialTransition(fadeIn, fadeOut);
+        sequentialTransition.setCycleCount(1);
+        sequentialTransition.play();
+    }
+
+    public void show_score(){
+        this.Scorebata = Scorebata;
+
+        // Set up a Timeline to update the score every second
+        Timeline scoreUpdater = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    updateScoreLabel();
+                })
+        );
+        scoreUpdater.setCycleCount(Timeline.INDEFINITE);
+        scoreUpdater.play();
+    }
+    public void updateScoreLabel() {
+        Scorebata.setText(String.valueOf(score));
+    }
+
+
+    public void show_highscore(){
+        this.highsc = highsc;
+
+        // Set up a Timeline to update the score every second
+        Timeline scoreUpdater = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    updatehighScoreLabel();
+                })
+        );
+        scoreUpdater.setCycleCount(Timeline.INDEFINITE);
+        scoreUpdater.play();
+    }
+    public void updatehighScoreLabel() {
+        highsc.setText("High Score: " + String.valueOf(high_score));
+    }
     public void neeche_jaa(ActionEvent e){
+        int score = 0;
+        show_highscore();
+        show_score();
         TranslateTransition fuckyou = new TranslateTransition();
         TranslateTransition fy2 = new TranslateTransition();
         TranslateTransition fy3 = new TranslateTransition();
@@ -291,12 +354,17 @@ public class HelloController {
 //                reset_posi();
                 rotate_the_stick();
                 if (check_collision()){
+                    Skore_badha();
                     System.out.println("Level up karke apni aukaat dikhadi");
                     rotate_the_stick();
                     chal_khel();
                 }
                 else{
                     rotate_the_stick();
+                    if (score>=high_score){
+                        high_score = score;
+                    }
+                    score = 0;
                     System.out.println("Yeh toh Moye Moye moment ho gaya");
                 }
             }
