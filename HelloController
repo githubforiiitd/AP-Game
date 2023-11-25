@@ -60,6 +60,10 @@ import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -261,6 +265,7 @@ public class HelloController {
 
 
     public void play(){
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         bridge_stick.setX(left_waala.getWidth()-2.5);
         bridge_stick.requestFocus();
         bridge_stick.setFocusTraversable(true);
@@ -286,7 +291,13 @@ public class HelloController {
 //                reset_posi();
                 rotate_the_stick();
                 if (check_collision()){
+                    System.out.println("Level up karke apni aukaat dikhadi");
+                    rotate_the_stick();
                     chal_khel();
+                }
+                else{
+                    rotate_the_stick();
+                    System.out.println("Yeh toh Moye Moye moment ho gaya");
                 }
             }
         });
@@ -305,8 +316,22 @@ public class HelloController {
         }
         else{
             System.out.println("Naalayak, bartan dho");
+            reset_posi();
             return false;
         }
+//        int terimaki = 514-(last_right_kaX*-1);
+//        try (ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor()) {
+//            // Other code...
+//
+//            if ((33.5+left_waala.getWidth() + bridge_stick.getHeight() >= terimaki) && 33.5+left_waala.getWidth() + bridge_stick.getHeight() <= terimaki + right_wala.getWidth()){
+//                System.out.println("Collision detected, resetting position in 1 second");
+//                return true;
+//            }
+//            else {
+//                System.out.println("No collision, continue playing");
+//                return false;
+//            }
+//        }
     }
 
     public void button_hover(){
@@ -329,7 +354,7 @@ public class HelloController {
         r1.setPivotX(bridge_stick.getX());
         r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
         bridge_stick.getTransforms().add(r1);
-        r1.setAngle(270);
+        r1.setAngle(180);
 
         bridge_stick.setY(0);
         bridge_stick.setX(left_waala.getWidth()-2.5);
