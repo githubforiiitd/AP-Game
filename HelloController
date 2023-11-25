@@ -7,11 +7,31 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import javafx.animation.RotateTransition;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import java.util.Random;
 import javafx.animation.RotateTransition;
+import javafx.event.ActionEvent;
+import javafx.scene.input.KeyCode;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
@@ -21,7 +41,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -65,6 +84,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.animation.ParallelTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -173,13 +193,16 @@ public class HelloController {
         xxx.setDuration(Duration.millis(1000));
         xxx.setNode(xyz);
         xxx.setFromX(0);
-        xxx.setToX(-(514+32-(36+widthy+28+spacing)));
+        xxx.setByX(-(514-36-widthy-28-spacing));
         xxx.play();
         left_waala = rl;
         right_wala = xyz;
         last_right_kaX = (-(514+32-(36+widthy+28+spacing)));
     }
     public void chal_khel(){
+        if (rr!=null){
+            painal.getChildren().remove((rr));
+        }
         // Left wale ko screen se bahar phekega
         TranslateTransition betic = new TranslateTransition();
         betic.setDuration(Duration.millis(1000));
@@ -199,30 +222,32 @@ public class HelloController {
         left_waala = right_wala;
 
         // Enters new Rect
-        int spacing = random.nextInt(28,464-(36+widthy+28));
+        int spacing = random.nextInt(28,400-(36+widthy+28));//yeh change kara hai
         Rectangle xyz = create_rectangle(spacing);
         TranslateTransition xxx = new TranslateTransition();
         xxx.setDuration(Duration.millis(1000));
         xxx.setNode(xyz);
         xxx.setFromX(0);
-        xxx.setToX(-(514+32-(36+widthy+28+spacing)));
-        last_right_kaX = (-(514+32-(36+widthy+28+spacing)));
+//        xxx.setToX(-(514+32-(36+widthy+28+spacing)));
+        xxx.setByX(-(514-36-widthy-28-spacing));
+        last_right_kaX = (-(514-36-widthy-28-spacing));
         xxx.play();
         right_wala = xyz;
     }
 
 
     public void play(){
+        bridge_stick.setX(left_waala.getWidth()-2.5);
         bridge_stick.requestFocus();
         bridge_stick.setFocusTraversable(true);
-        bridge_stick.setX(left_waala.getWidth()-5);
+
         increaseTimeline = new Timeline(
                 new KeyFrame(Duration.millis(50), event -> {
                     increase_bridge_stick();
                 })
         );
-        increaseTimeline.setCycleCount(Timeline.INDEFINITE);
 
+        increaseTimeline.setCycleCount(Timeline.INDEFINITE);
         bridge_stick.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.SPACE) {
                 increaseTimeline.play();
@@ -233,10 +258,18 @@ public class HelloController {
         bridge_stick.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.SPACE) {
                 increaseTimeline.stop();
-                rotate_the_stick();
+                reset_posi();
                 chal_khel();
             }
         });
+    }
+
+
+    public void button_hover(){
+        laura.setOpacity(0.5);
+    }
+    public void button_hover_exit(){
+        laura.setOpacity(1);
     }
 
 
@@ -245,25 +278,30 @@ public class HelloController {
         bridge_stick.setY(bridge_stick.getY()-5);
     }
 
+
     public void reset_posi(){
+        bridge_stick.setRotate(0);
         bridge_stick.setY(0);
+        bridge_stick.setX(left_waala.getWidth()-2.5);
         bridge_stick.setHeight(0);
     }
 
+
     public void rotate_the_stick(){
-        // Calculate the left edge coordinates
-        double leftEdgeX = bridge_stick.getX();
-        double leftEdgeY = bridge_stick.getY() + bridge_stick.getHeight()/2; 
-
-        TranslateTransition translateTransition = new TranslateTransition(Duration.ZERO, bridge_stick);
-        translateTransition.setToX(leftEdgeX);
-        translateTransition.setToY(leftEdgeY);
-
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), bridge_stick);
-        rotateTransition.setByAngle(90); 
+        rotateTransition.setToAngle(90);
+        rotateTransition.play();
 
-        translateTransition.setOnFinished(event -> rotateTransition.play());
-        translateTransition.play();
+        TranslateTransition transonx = new TranslateTransition(Duration.seconds(1), bridge_stick);
+        transonx.setToX(bridge_stick.getHeight()/2);
+        transonx.play();
+
+        TranslateTransition transony = new TranslateTransition(Duration.seconds(1), bridge_stick);
+        transony.setToY((bridge_stick.getHeight()/2));
+        transony.play();
+
+        ParallelTransition parallelTransition = new ParallelTransition(transonx, rotateTransition, transony);
+        parallelTransition.play();
     }
 
 
@@ -304,12 +342,19 @@ public class HelloController {
     }
 
     public Rectangle create_rectangle(int spacing){
-        int w2 = random.nextInt(28,464-(36+widthy+28+spacing));
+
+        int w2 = random.nextInt(28,482-(36+widthy+28+spacing));
+        if(36+widthy+w2+28+spacing>481){
+            w2 = 481-(36+widthy+28+spacing);
+        }
+        if(w2>=200){
+            w2 = 100;
+        }
+        widthy = w2;
         int layx = 514;
         Rectangle rectangle = new Rectangle(514,606,w2,253);
         rectangle.setFill(Color.web("#801c1c"));
         painal.getChildren().add(rectangle);
-        widthy = w2;
         return rectangle;
     }
 
