@@ -233,6 +233,7 @@ public class HelloController {
         last_right_kaX = (-(514-36-widthy-28-spacing));
         xxx.play();
         right_wala = xyz;
+        play();
     }
 
 
@@ -258,8 +259,8 @@ public class HelloController {
         bridge_stick.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.SPACE) {
                 increaseTimeline.stop();
-                reset_posi();
                 chal_khel();
+                reset_posi();
             }
         });
     }
@@ -268,6 +269,7 @@ public class HelloController {
     public void button_hover(){
         laura.setOpacity(0.5);
     }
+
     public void button_hover_exit(){
         laura.setOpacity(1);
     }
@@ -289,7 +291,7 @@ public class HelloController {
 
     public void rotate_the_stick(){
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), bridge_stick);
-        rotateTransition.setToAngle(90);
+        rotateTransition.setByAngle(90);
         rotateTransition.play();
 
         TranslateTransition transonx = new TranslateTransition(Duration.seconds(1), bridge_stick);
