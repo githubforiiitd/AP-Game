@@ -1,15 +1,19 @@
 package com.example.stickkyyheeerooo;
 import javafx.animation.TranslateTransition;
+import javafx.application.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -142,6 +146,12 @@ public class HelloController {
     }
 
     @FXML
+    public Button circularButton;
+
+    @FXML
+    public ImageView Restart_image;
+
+    @FXML
     private Rectangle rl;
     @FXML
     private Rectangle rr;
@@ -159,6 +169,8 @@ public class HelloController {
     @FXML
     public Text blinker;
 
+    @FXML
+    public Label score_page;
     public int widthy = 71;
 
     @FXML
@@ -192,6 +204,17 @@ public class HelloController {
     Random random = new Random();
 
 
+    public void restartApplication() {
+        Platform.runLater(() -> {
+            try {
+                // Create a new instance of the application and start it
+                new HelloApplication().start(new Stage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 
     public void Skore_badha(){
         score += 1;
@@ -224,6 +247,19 @@ public class HelloController {
         Scorebata.setText(String.valueOf(score));
     }
 
+    public void end_pe_score(Label scorePageLabel) {
+        Timeline scoreUpdater = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    updateScorePageLabel(scorePageLabel);
+                })
+        );
+        scoreUpdater.setCycleCount(Timeline.INDEFINITE);
+        scoreUpdater.play();
+    }
+
+    public void updateScorePageLabel(Label scorePageLabel) {
+        scorePageLabel.setText(String.valueOf(score));
+    }
 
     public void show_highscore(){
         this.highsc = highsc;
@@ -242,6 +278,7 @@ public class HelloController {
     }
     public void neeche_jaa(ActionEvent e){
         int score = 0;
+        end_pe_score(score_page);
         show_highscore();
         show_score();
         TranslateTransition fuckyou = new TranslateTransition();
@@ -402,6 +439,12 @@ public class HelloController {
 //        }
     }
 
+    public void reset_to_play(){
+        score_page.setOpacity(0);
+        circularButton.setDisable(true);
+
+    }
+
     public void button_hover(){
         laura.setOpacity(0.5);
     }
@@ -441,7 +484,7 @@ public class HelloController {
 
 
 
-    public void switch_start(ActionEvent e) {
+    public void switch_start() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("nayihaiyaar.fxml"));
             Parent root = fxmlLoader.load();
@@ -453,7 +496,7 @@ public class HelloController {
         }
     }
 
-    public void switch_play(ActionEvent e) {
+    public void switch_play() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayGame.fxml"));
             Parent root = fxmlLoader.load();
@@ -465,7 +508,7 @@ public class HelloController {
         }
     }
 
-    public void switch_score(ActionEvent e) {
+    public void switch_score() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ForScore.fxml"));
             Parent root = fxmlLoader.load();
@@ -493,5 +536,4 @@ public class HelloController {
         painal.getChildren().add(rectangle);
         return rectangle;
     }
-
 }
