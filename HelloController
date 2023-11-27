@@ -140,6 +140,7 @@ public class HelloController {
 
     private Stage stage;
     private Scene scene;
+    boolean gir_gayi = false;
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -155,8 +156,6 @@ public class HelloController {
     private Rectangle rl;
     @FXML
     private Rectangle rr;
-    @FXML
-    private ImageView as;
     @FXML
     public Button sb;
     @FXML
@@ -191,6 +190,8 @@ public class HelloController {
     @FXML
     public Text scored;
 
+    @FXML
+    public ImageView hero;
     public int score = 0;
     public int high_score = 0;
 
@@ -273,6 +274,7 @@ public class HelloController {
         scoreUpdater.setCycleCount(Timeline.INDEFINITE);
         scoreUpdater.play();
     }
+
     public void updatehighScoreLabel() {
         highsc.setText("High Score: " + String.valueOf(high_score));
     }
@@ -296,7 +298,7 @@ public class HelloController {
         fy2.setToX(140);
         fy2.play();
         fy3.setDuration(Duration.millis(1000));
-        fy3.setNode(as);
+        fy3.setNode(hero);
         fy3.setFromY(0);
         fy3.setToY(140);
         fy3.play();
@@ -387,22 +389,29 @@ public class HelloController {
         bridge_stick.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.SPACE) {
                 increaseTimeline.stop();
-//                chal_khel();
-//                reset_posi();
-                rotate_the_stick();
+                Timeline rotatekaro = new Timeline(
+                        new KeyFrame(Duration.seconds(0.011), event2 -> {
+                            rotate_the_stick();
+                        })
+                );
+                rotatekaro.setCycleCount(90);
+                rotatekaro.play();
                 if (check_collision()){
                     Skore_badha();
-                    System.out.println("Level up karke apni aukaat dikhadi");
-                    rotate_the_stick();
-                    chal_khel();
+                    Timeline chalnalaude = new Timeline(
+                            new KeyFrame(Duration.seconds(3), event3 -> {
+                                chal_khel();
+                            })
+                    );
+                    System.out.println("Layout : " + right_wala.getLayoutX() + ",   X: " + right_wala.getX() );
+                    chalnalaude.play();
                 }
                 else{
-                    rotate_the_stick();
                     if (score>=high_score){
                         high_score = score;
                     }
+                    System.out.println("Layout : " + right_wala.getLayoutX() + ",   X: " + right_wala.getX() );
                     score = 0;
-                    System.out.println("Yeh toh Moye Moye moment ho gaya");
                 }
             }
         });
@@ -416,12 +425,22 @@ public class HelloController {
         int terimaki = 514-(last_right_kaX*-1);
         if ((33.5+left_waala.getWidth() + bridge_stick.getHeight() >= terimaki) && 33.5+left_waala.getWidth() + bridge_stick.getHeight() <= terimaki + right_wala.getWidth()){
             System.out.println("true hai bhai, player ho aap");
-            reset_posi();
+            Timeline resetkar = new Timeline(
+                    new KeyFrame(Duration.seconds(2), event -> {
+                        reset_posi();
+                    })
+            );
+            resetkar.play();
             return true;
         }
         else{
             System.out.println("Naalayak, bartan dho");
-            reset_posi();
+            Timeline resetkar = new Timeline(
+                    new KeyFrame(Duration.seconds(2), event -> {
+                        reset_posi();
+                    })
+            );
+            resetkar.play();
             return false;
         }
 //        int terimaki = 514-(last_right_kaX*-1);
@@ -465,7 +484,7 @@ public class HelloController {
         r1.setPivotX(bridge_stick.getX());
         r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
         bridge_stick.getTransforms().add(r1);
-        r1.setAngle(180);
+        r1.setAngle(-90);
 
         bridge_stick.setY(0);
         bridge_stick.setX(left_waala.getWidth()-2.5);
@@ -479,7 +498,7 @@ public class HelloController {
         r1.setPivotX(bridge_stick.getX());
         r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
         bridge_stick.getTransforms().add(r1);
-        r1.setAngle(90);
+        r1.setAngle(1);
     }
 
 
