@@ -20,7 +20,8 @@
       <Rectangle fx:id="stick" arcWidth="5.0" fill="#22ff1f" height="0.0" layoutX="117.3" layoutY="406.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.3" width="5.0" />
       <Rectangle id="1" fx:id="rl" arcWidth="5.0" fill="#801c1c" height="393.0" layoutX="36.0" layoutY="466.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
       <Rectangle id="2" fx:id="rr" arcWidth="5.0" fill="#801c1c" height="393.0" layoutX="365.0" layoutY="593.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="71.0" y="140.0" />
-      <ImageView fx:id="hero" fitHeight="33.0" fitWidth="31.0" layoutX="93.0" layoutY="436.0">
+      <Button fx:id="play_button" disable="true" layoutX="-4.0" layoutY="130.0" mnemonicParsing="false" onAction="#play" opacity="0.0" prefHeight="743.0" prefWidth="485.0" text="Button" />
+      <ImageView fx:id="hero" fitHeight="33.0" fitWidth="31.0" layoutX="94.0" layoutY="437.0">
          <image>
             <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/vf3ojm4o1sn51.png" />
          </image>
@@ -42,7 +43,6 @@
       </Text>
       <Button fx:id="sb" layoutX="177.0" layoutY="595.0" mnemonicParsing="false" onAction="#neeche_jaa" opacity="0.0" prefHeight="73.0" prefWidth="140.0" text="Start_button" />
       <Rectangle fx:id="bridge_stick" fill="DODGERBLUE" layoutX="36.0" layoutY="606.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.5" />
-      <Button fx:id="play_button" disable="true" layoutX="-1.0" layoutY="117.0" mnemonicParsing="false" onAction="#play" opacity="0.0" prefHeight="743.0" prefWidth="485.0" text="Button" />
       <Text fx:id="scored" fill="#1bbc1e" layoutX="205.0" layoutY="154.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" +1" wrappingWidth="71.22152008415549">
          <font>
             <Font size="44.0" />
