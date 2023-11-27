@@ -140,6 +140,7 @@ public class HelloController {
 
     private Stage stage;
     private Scene scene;
+    public double dif = 0;
     boolean gir_gayi = false;
     @FXML
     protected void onHelloButtonClick() {
@@ -148,6 +149,8 @@ public class HelloController {
 
     @FXML
     public Button circularButton;
+
+    public Rectangle aane_waala_rect;
 
     @FXML
     public ImageView Restart_image;
@@ -160,6 +163,8 @@ public class HelloController {
     public Button sb;
     @FXML
     public ImageView laura;
+
+    public int sc = 0;
     @FXML
     public Text blink;
 
@@ -193,6 +198,7 @@ public class HelloController {
     @FXML
     public ImageView hero;
     public int score = 0;
+    public int pa = 0;
     public int high_score = 0;
 
     @FXML
@@ -275,6 +281,25 @@ public class HelloController {
         scoreUpdater.play();
     }
 
+    public void movehero(int spacing){
+        TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
+        herobadha.setNode(hero);
+        herobadha.setFromX(dif);
+        herobadha.setToX(spacing + right_wala.getWidth() + right_wala.getWidth() - 64.5);
+        double yolo = right_wala.getWidth() + right_wala.getWidth() - 64.5 ;
+        herobadha.play();
+        Timeline chalnalaude = new Timeline(
+                new KeyFrame(Duration.seconds(1), event3 -> {
+                    TranslateTransition heroghta = new TranslateTransition(Duration.seconds(1));
+                    herobadha.setNode(hero);
+                    dif = -hero.getLayoutX()  + left_waala.getWidth();
+                    herobadha.setFromX(spacing + yolo);
+                    herobadha.setToX(dif);
+                    herobadha.play();
+                })
+        );
+        chalnalaude.play();
+    }
     public void updatehighScoreLabel() {
         highsc.setText("High Score: " + String.valueOf(high_score));
     }
@@ -317,6 +342,7 @@ public class HelloController {
         fadeTransitions.setCycleCount(1);
         fadeTransitions.play();
         int spacing = random.nextInt(28,464-(36+widthy+28));
+        sc = spacing;
         Rectangle xyz = create_rectangle(spacing);
         TranslateTransition xxx = new TranslateTransition();
         xxx.setDuration(Duration.millis(1000));
@@ -324,11 +350,12 @@ public class HelloController {
         xxx.setFromX(0);
         xxx.setByX(-(514-36-widthy-28-spacing));
         xxx.play();
+        aane_waala_rect = xyz;
         left_waala = rl;
         right_wala = xyz;
         last_right_kaX = (-(514+32-(36+widthy+28+spacing)));
     }
-    public void chal_khel(){
+    public int chal_khel(){
         if (rr!=null){
             painal.getChildren().remove((rr));
         }
@@ -357,12 +384,18 @@ public class HelloController {
         xxx.setDuration(Duration.millis(1000));
         xxx.setNode(xyz);
         xxx.setFromX(0);
+        aane_waala_rect = xyz;
 //        xxx.setToX(-(514+32-(36+widthy+28+spacing)));
         xxx.setByX(-(514-36-widthy-28-spacing));
         last_right_kaX = (-(514-36-widthy-28-spacing));
         xxx.play();
         right_wala = xyz;
         play();
+        sc = spacing;
+
+        return spacing;
+//        movehero(spacing);
+
     }
 
 
@@ -388,29 +421,42 @@ public class HelloController {
 
         bridge_stick.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.SPACE) {
+
                 increaseTimeline.stop();
-                Timeline rotatekaro = new Timeline(
+                final Timeline[] rotatekaro = {new Timeline(
                         new KeyFrame(Duration.seconds(0.011), event2 -> {
                             rotate_the_stick();
                         })
-                );
-                rotatekaro.setCycleCount(90);
-                rotatekaro.play();
+                )};
+                rotatekaro[0].setCycleCount(90);
+                rotatekaro[0].play();
                 if (check_collision()){
+                    final int[] i = {1};
                     Skore_badha();
-                    Timeline chalnalaude = new Timeline(
-                            new KeyFrame(Duration.seconds(3), event3 -> {
-                                chal_khel();
+                    Timeline movekarde = new Timeline(
+                            new KeyFrame(Duration.seconds(2), event4 -> {
+                                if(i[0] ==1){
+                                    movehero(sc);
+                                    i[0]++;
+                                }else{
+                                    movehero(pa);
+                                }
+
                             })
                     );
-                    System.out.println("Layout : " + right_wala.getLayoutX() + ",   X: " + right_wala.getX() );
+                    movekarde.play();
+                    Timeline chalnalaude = new Timeline(
+                            new KeyFrame(Duration.seconds(3), event3 -> {
+
+                                pa = chal_khel();
+                            })
+                    );
                     chalnalaude.play();
                 }
                 else{
                     if (score>=high_score){
                         high_score = score;
                     }
-                    System.out.println("Layout : " + right_wala.getLayoutX() + ",   X: " + right_wala.getX() );
                     score = 0;
                 }
             }
@@ -418,13 +464,8 @@ public class HelloController {
     }
 
     public boolean check_collision(){
-        System.out.println("left spacing");
-        System.out.println(33.5+left_waala.getWidth() + bridge_stick.getHeight());
-        System.out.println("Right spacing");
-        System.out.println(514-(last_right_kaX*-1));
         int terimaki = 514-(last_right_kaX*-1);
         if ((33.5+left_waala.getWidth() + bridge_stick.getHeight() >= terimaki) && 33.5+left_waala.getWidth() + bridge_stick.getHeight() <= terimaki + right_wala.getWidth()){
-            System.out.println("true hai bhai, player ho aap");
             Timeline resetkar = new Timeline(
                     new KeyFrame(Duration.seconds(2), event -> {
                         reset_posi();
@@ -434,7 +475,6 @@ public class HelloController {
             return true;
         }
         else{
-            System.out.println("Naalayak, bartan dho");
             Timeline resetkar = new Timeline(
                     new KeyFrame(Duration.seconds(2), event -> {
                         reset_posi();
