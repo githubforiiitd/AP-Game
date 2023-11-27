@@ -20,7 +20,7 @@
       <Rectangle fx:id="stick" arcWidth="5.0" fill="#22ff1f" height="0.0" layoutX="117.3" layoutY="406.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.3" width="5.0" />
       <Rectangle id="1" fx:id="rl" arcWidth="5.0" fill="#801c1c" height="393.0" layoutX="36.0" layoutY="466.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
       <Rectangle id="2" fx:id="rr" arcWidth="5.0" fill="#801c1c" height="393.0" layoutX="365.0" layoutY="593.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="71.0" y="140.0" />
-      <ImageView fx:id="as" fitHeight="46.0" fitWidth="44.0" layoutX="65.0" layoutY="425.0">
+      <ImageView fx:id="hero" fitHeight="33.0" fitWidth="31.0" layoutX="93.0" layoutY="436.0">
          <image>
             <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/vf3ojm4o1sn51.png" />
          </image>
