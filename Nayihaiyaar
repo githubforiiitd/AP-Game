@@ -43,7 +43,7 @@
       <Button fx:id="sb" layoutX="177.0" layoutY="595.0" mnemonicParsing="false" onAction="#neeche_jaa" opacity="0.0" prefHeight="73.0" prefWidth="140.0" text="Start_button" />
       <Rectangle fx:id="bridge_stick" fill="DODGERBLUE" layoutX="36.0" layoutY="606.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.5" />
       <Button fx:id="play_button" disable="true" layoutX="-1.0" layoutY="117.0" mnemonicParsing="false" onAction="#play" opacity="0.0" prefHeight="743.0" prefWidth="485.0" text="Button" />
-      <Text fx:id="scored" fill="#1bbc1e" layoutX="149.0" layoutY="152.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score   +1" wrappingWidth="185.87115753602052">
+      <Text fx:id="scored" fill="#1bbc1e" layoutX="205.0" layoutY="154.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" +1" wrappingWidth="71.22152008415549">
          <font>
             <Font size="44.0" />
          </font>
@@ -63,12 +63,12 @@
             <Circle fill="lightblue" radius="80.0" />
          </graphic>
       </Button>
-      <ImageView fx:id="Restart_image" opacity="0" fitHeight="156.0" fitWidth="159.0" layoutX="162.0" layoutY="510.0">
+      <ImageView fx:id="Restart_image" fitHeight="156.0" fitWidth="159.0" layoutX="162.0" layoutY="510.0" opacity="0">
          <image>
             <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/replay.png" />
          </image>
       </ImageView>
-      <Label fx:id= "score_page" layoutX="199.0" opacity="0" layoutY="147.0" prefHeight="85.0" prefWidth="85.0">
+      <Label fx:id="score_page" layoutX="199.0" layoutY="147.0" opacity="0" prefHeight="85.0" prefWidth="85.0">
          <font>
             <Font size="69.0" />
          </font>
