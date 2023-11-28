@@ -153,6 +153,8 @@ public class HelloController {
     public Rectangle aane_waala_rect;
 
     @FXML
+    public Button flip_button;
+    @FXML
     public ImageView Restart_image;
 
     @FXML
@@ -172,6 +174,8 @@ public class HelloController {
     private Pane painal;
     @FXML
     public Text blinker;
+
+    public int fli = 0;
     @FXML
     public Text fliptxt;
 
@@ -297,6 +301,9 @@ public class HelloController {
     }
 
     public void movehero(int spacing){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
         herobadha.setNode(hero);
         herobadha.setFromX(dif);
@@ -314,12 +321,27 @@ public class HelloController {
                 })
         );
         chalnalaude.play();
+        Timeline checkflip = new Timeline(
+                new KeyFrame(Duration.seconds(1), event5 ->{
+                    if (hero.getRotate() == 0){
+                        int po = 0;
+                    }
+                    else{
+                        game_abhi_over();
+                    }
+                } )
+        );
+        checkflip.play();
     }
     public void updatehighScoreLabel() {
         highsc.setText("High Score: " + String.valueOf(high_score));
     }
     public void neeche_jaa(ActionEvent e){
         int score = 0;
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
+        flip_button.setDisable(true);
         end_pe_score(score_page);
         show_highscore();
         show_score();
@@ -377,6 +399,9 @@ public class HelloController {
         fliplo.play();
     }
     public int chal_khel(){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         if (rr!=null){
             painal.getChildren().remove((rr));
         }
@@ -388,6 +413,9 @@ public class HelloController {
         betic.setToX(-300-(int)left_waala.getX());
         betic.play();
 
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         // Right wale ko left jagah pe daalega
         TranslateTransition PKMB = new TranslateTransition();
         PKMB.setDuration(Duration.millis(1000));
@@ -399,6 +427,9 @@ public class HelloController {
         left_waala = right_wala;
 
         // Enters new Rect
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         int spacing = random.nextInt(42,350-(36+widthy+28));//yeh change kara hai
         Rectangle xyz = create_rectangle(spacing);
         TranslateTransition xxx = new TranslateTransition();
@@ -416,133 +447,213 @@ public class HelloController {
 
         return spacing;
 //        movehero(spacing);
-
     }
-
 
     public void flip_kar(){
         hero.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.A) {
+            if (e.getCode() == KeyCode.DOWN) {
                 hero_flip();
             }
         });
+        if (fli == 0){
+            hero_flip();
+            fli+=1;
+        }
+        else{
+            hero.setRotate(0);
+            hero.setY(0);
+            fli-=1;
+        }
     }
     public void play(){
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        bridge_stick.setX(left_waala.getWidth()-2.5);
-        bridge_stick.requestFocus();
-        bridge_stick.setFocusTraversable(true);
+        if (hero.getRotate()==0) {
+            play_button.toFront();
+            hero.toFront();
+            flip_button.toFront();
+            ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+            bridge_stick.setX(left_waala.getWidth() - 2.5);
+            bridge_stick.requestFocus();
+            bridge_stick.setFocusTraversable(true);
 
 
-        increaseTimeline = new Timeline(
-                new KeyFrame(Duration.millis(50), event -> {
-                    increase_bridge_stick();
+            increaseTimeline = new Timeline(
+                    new KeyFrame(Duration.millis(50), event -> {
+                        increase_bridge_stick();
+                    })
+            );
+
+            increaseTimeline.setCycleCount(Timeline.INDEFINITE);
+            bridge_stick.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.SPACE) {
+                    increaseTimeline.play();
+
+                }
+            });
+
+            bridge_stick.setOnKeyReleased(event -> {
+                if (event.getCode() == KeyCode.SPACE) {
+                    increaseTimeline.stop();
+                    play_button.toFront();
+                    hero.toFront();
+                    flip_button.toFront();
+                    final Timeline[] rotatekaro = {new Timeline(
+                            new KeyFrame(Duration.seconds(0.011), event2 -> {
+                                rotate_the_stick();
+                                //                            flipbut.setDisable(false);
+                                //                            hero.setOnKeyPressed(event6 -> { if (event6.getCode() == KeyCode.DOWN) hero.setRotate(hero.getRotate() + 180); });
+                            })
+                    )};
+                    rotatekaro[0].setCycleCount(90);
+                    rotatekaro[0].play();
+                    if (hero.getRotate()==0) {
+                        if (check_collision()) {
+                            if (score >= high_score) {
+                                high_score = score;
+                            }
+                            final int[] i = {1};
+                            Skore_badha();
+                            Timeline movekarde = new Timeline(
+                                    new KeyFrame(Duration.seconds(1), event4 -> {
+                                        if (i[0] == 1) {
+                                            if (hero.getRotate() == 0) {
+                                                play_button.setDisable(true);
+                                                flip_button.setDisable(false);
+                                                movehero(sc);
+                                                i[0]++;
+                                            } else {
+                                                game_im_over();
+                                            }
+                                        } else {
+                                            if (hero.getRotate() == 0) {
+                                                play_button.setDisable(true);
+                                                flip_button.setDisable(false);
+                                                movehero(pa);
+                                            } else {
+                                                game_im_over();
+                                            }
+                                        }
+
+                                    })
+                            );
+                            movekarde.play();
+                            Timeline chalnalaude = new Timeline(
+                                    new KeyFrame(Duration.seconds(2), event3 -> {
+                                        pa = chal_khel();
+                                        play_button.setDisable(false);
+                                        flip_button.setDisable(true);
+                                    })
+                            );
+                            chalnalaude.play();
+                        } else {
+                            if (score >= high_score) {
+                                high_score = score;
+                            }
+                            score = 0;
+                            game_over();
+                        }
+                    }
+                    else {
+                        game_im_over();
+                    }
+
+                }
+            });
+        }
+        else{
+            game_im_over();
+        }
+    }
+
+    public void game_over(){
+        Timeline chalnachamiye = new Timeline(
+                new KeyFrame(Duration.seconds(1), event3 -> {
+                    stickend();
                 })
         );
+        chalnachamiye.play();
+        Timeline nichegir = new Timeline(
+                new KeyFrame(Duration.seconds(2), event2 -> {
+                    endseniche();
+                })
+        );
+        nichegir.play();
+        Timeline scorebata = new Timeline(
+                new KeyFrame(Duration.seconds(3), event1 -> {
+                    switch_score();
+                })
+        );
+        scorebata.play();
+    }
 
-        increaseTimeline.setCycleCount(Timeline.INDEFINITE);
-        bridge_stick.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.SPACE) {
-                increaseTimeline.play();
+    public void game_im_over(){
+        System.out.println("idhar aagae");
+        stickkebich();
 
-            }
-        });
+        Timeline nichegir = new Timeline(
+                new KeyFrame(Duration.seconds(1), event5 -> {
+                    endseniche();
+                })
+        );
+        nichegir.play();
 
-        bridge_stick.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.SPACE) {
-                increaseTimeline.stop();
-                System.out.println(play_button.isDisable());
-                final Timeline[] rotatekaro = {new Timeline(
-                        new KeyFrame(Duration.seconds(0.011), event2 -> {
-                            rotate_the_stick();
-//                            flipbut.setDisable(false);
-//                            hero.setOnKeyPressed(event6 -> { if (event6.getCode() == KeyCode.DOWN) hero.setRotate(hero.getRotate() + 180); });
-                        })
-                )};
-                rotatekaro[0].setCycleCount(90);
-                rotatekaro[0].play();
-                if (check_collision()){
-                    if (score>=high_score){
-                        high_score = score;
-                    }
-                    final int[] i = {1};
-                    Skore_badha();
-                    Timeline movekarde = new Timeline(
-                            new KeyFrame(Duration.seconds(1), event4 -> {
-                                if(i[0] ==1){
-                                    movehero(sc);
-                                    i[0]++;
-                                }else{
-                                    movehero(pa);
-                                }
-
-                            })
-                    );
-                    movekarde.play();
-                    Timeline chalnalaude = new Timeline(
-                            new KeyFrame(Duration.seconds(2), event3 -> {
-                                pa = chal_khel();
-                            })
-                    );
-                    chalnalaude.play();
-                    Timeline butenable = new Timeline(
-                            new KeyFrame(Duration.seconds(5), event9 -> {
-//                                play_button.setDisable(false);
-                            })
-                    );
-                    butenable.play();
-
-                }
-                else{
-                    if (score>=high_score){
-                        high_score = score;
-                    }
-                    score = 0;
-                    Timeline chalnachamiye = new Timeline(
-                            new KeyFrame(Duration.seconds(1), event5 -> {
-                                stickend();
-                            })
-                    );
-                    chalnachamiye.play();
-                    Timeline nichegir = new Timeline(
-                            new KeyFrame(Duration.seconds(2), event5 -> {
-                                endseniche();
-                            })
-                    );
-                    nichegir.play();
-                    Timeline scorebata = new Timeline(
-                            new KeyFrame(Duration.seconds(3), event5 -> {
-                                switch_score();
-                            })
-                    );
-                    scorebata.play();
-
-                }
-            }
-        });
+        Timeline scorebata = new Timeline(
+                new KeyFrame(Duration.seconds(2), event6 -> {
+                    switch_score();
+                })
+        );
+        scorebata.play();
     }
 
 
+    public void game_abhi_over(){
+        endseniche();
+        Timeline scorebata = new Timeline(
+                new KeyFrame(Duration.seconds(1), event6 -> {
+                    switch_score();
+                })
+        );
+        scorebata.play();
+    }
     public void stickend(){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
         herobadha.setNode(hero);
         herobadha.setFromX(dif);
         herobadha.setToX(dif+bridge_stick.getHeight());
         herobadha.play();
     }
+
+    public void stickkebich(){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
+        TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
+        herobadha.setNode(hero);
+        herobadha.setFromX(dif);
+        herobadha.setToX(dif+40);
+        herobadha.play();
+    }
     public void endseniche(){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
         herobadha.setNode(hero);
         herobadha.setFromY(163);
         herobadha.setToY(900);
         herobadha.play();
     }
+
     public boolean check_collision(){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         int terimaki = 514-(last_right_kaX*-1);
         if ((33.5+left_waala.getWidth() + bridge_stick.getHeight() >= terimaki) && 33.5+left_waala.getWidth() + bridge_stick.getHeight() <= terimaki + right_wala.getWidth()){
             Timeline resetkar = new Timeline(
                     new KeyFrame(Duration.seconds(2), event -> {
-                        System.out.println("X: " + bridge_stick.getX() + ", Y: " + bridge_stick.getY());
                         reset_posi();
                     })
             );
@@ -567,6 +678,8 @@ public class HelloController {
 
 
     public void hero_flip(){
+        System.out.println(hero.getLayoutX());
+        hero.setY(29.5);
         hero.setRotate(180);
     }
 
@@ -586,6 +699,9 @@ public class HelloController {
 
 
     public void reset_posi(){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         Rotate r1 = new Rotate();
         r1.setPivotX(bridge_stick.getX());
         r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
@@ -599,6 +715,9 @@ public class HelloController {
 
 
     public void rotate_the_stick(){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
         // Create a RotateTransition
         Rotate r1 = new Rotate();
         r1.setPivotX(bridge_stick.getX());
@@ -646,7 +765,9 @@ public class HelloController {
     }
 
     public Rectangle create_rectangle(int spacing){
+        play_button.toFront();
         hero.toFront();
+        flip_button.toFront();
         int w2 = random.nextInt(28,482-(36+widthy+28+spacing));
         if(36+widthy+w2+28+spacing>481){
             w2 = 481-(36+widthy+28+spacing);
