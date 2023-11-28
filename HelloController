@@ -480,6 +480,8 @@ public class HelloController {
             play_button.toFront();
             hero.toFront();
             flip_button.toFront();
+            flip1.toFront();
+            flip2.toFront();
             ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
             bridge_stick.setX(left_waala.getWidth() - 2.5);
             bridge_stick.requestFocus();
