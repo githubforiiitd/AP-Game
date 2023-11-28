@@ -73,5 +73,12 @@
             <Font size="69.0" />
          </font>
       </Label>
+      <Button fx:id="flip_button" layoutX="220.0" layoutY="753.0" mnemonicParsing="false" onAction="#flip_kar" text="Button" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.0" layoutX="220.0" layoutY="752.0" stroke="BLACK" strokeType="INSIDE" width="56.0" />
+      <Text fill="WHITE" layoutX="232.0" layoutY="773.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flip">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
