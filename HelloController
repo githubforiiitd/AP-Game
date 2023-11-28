@@ -172,6 +172,14 @@ public class HelloController {
     private Pane painal;
     @FXML
     public Text blinker;
+    @FXML
+    public Text fliptxt;
+
+    @FXML
+    public Rectangle flipbox;
+
+    @FXML
+    public Button flipbut;
 
     @FXML
     public Label score_page;
@@ -216,12 +224,19 @@ public class HelloController {
             try {
                 // Create a new instance of the application and start it
                 new HelloApplication().start(new Stage());
+                stage.setScene(scene);
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
 
+    public void fliplao(){
+        flipbox.setOpacity(1);
+        flipbut.setOpacity(1);
+        fliptxt.setOpacity(1);
+    }
 
     public void Skore_badha(){
         score += 1;
@@ -341,19 +356,25 @@ public class HelloController {
         fadeTransitions.setToValue(0);
         fadeTransitions.setCycleCount(1);
         fadeTransitions.play();
-        int spacing = random.nextInt(28,464-(36+widthy+28));
+        int spacing = random.nextInt(42,350-(36+widthy+28));//yeh change kara hai
         sc = spacing;
         Rectangle xyz = create_rectangle(spacing);
         TranslateTransition xxx = new TranslateTransition();
         xxx.setDuration(Duration.millis(1000));
         xxx.setNode(xyz);
         xxx.setFromX(0);
-        xxx.setByX(-(514-36-widthy-28-spacing));
+        xxx.setByX(-(514-36-widthy-42-spacing));
         xxx.play();
         aane_waala_rect = xyz;
         left_waala = rl;
         right_wala = xyz;
-        last_right_kaX = (-(514+32-(36+widthy+28+spacing)));
+        last_right_kaX = (-(514+32-(36+widthy+42+spacing)));
+        Timeline fliplo = new Timeline(
+                new KeyFrame(Duration.seconds(2), event3 -> {
+                    fliplao();
+                })
+        );
+        fliplo.play();
     }
     public int chal_khel(){
         if (rr!=null){
@@ -378,7 +399,7 @@ public class HelloController {
         left_waala = right_wala;
 
         // Enters new Rect
-        int spacing = random.nextInt(28,400-(36+widthy+28));//yeh change kara hai
+        int spacing = random.nextInt(42,350-(36+widthy+28));//yeh change kara hai
         Rectangle xyz = create_rectangle(spacing);
         TranslateTransition xxx = new TranslateTransition();
         xxx.setDuration(Duration.millis(1000));
@@ -386,8 +407,8 @@ public class HelloController {
         xxx.setFromX(0);
         aane_waala_rect = xyz;
 //        xxx.setToX(-(514+32-(36+widthy+28+spacing)));
-        xxx.setByX(-(514-36-widthy-28-spacing));
-        last_right_kaX = (-(514-36-widthy-28-spacing));
+        xxx.setByX(-(514-36-widthy-42-spacing));
+        last_right_kaX = (-(514-36-widthy-42-spacing));
         xxx.play();
         right_wala = xyz;
         play();
@@ -399,11 +420,19 @@ public class HelloController {
     }
 
 
+    public void flip_kar(){
+        hero.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.A) {
+                hero_flip();
+            }
+        });
+    }
     public void play(){
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         bridge_stick.setX(left_waala.getWidth()-2.5);
         bridge_stick.requestFocus();
         bridge_stick.setFocusTraversable(true);
+
 
         increaseTimeline = new Timeline(
                 new KeyFrame(Duration.millis(50), event -> {
@@ -421,20 +450,25 @@ public class HelloController {
 
         bridge_stick.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.SPACE) {
-
                 increaseTimeline.stop();
+                System.out.println(play_button.isDisable());
                 final Timeline[] rotatekaro = {new Timeline(
                         new KeyFrame(Duration.seconds(0.011), event2 -> {
                             rotate_the_stick();
+//                            flipbut.setDisable(false);
+//                            hero.setOnKeyPressed(event6 -> { if (event6.getCode() == KeyCode.DOWN) hero.setRotate(hero.getRotate() + 180); });
                         })
                 )};
                 rotatekaro[0].setCycleCount(90);
                 rotatekaro[0].play();
                 if (check_collision()){
+                    if (score>=high_score){
+                        high_score = score;
+                    }
                     final int[] i = {1};
                     Skore_badha();
                     Timeline movekarde = new Timeline(
-                            new KeyFrame(Duration.seconds(2), event4 -> {
+                            new KeyFrame(Duration.seconds(1), event4 -> {
                                 if(i[0] ==1){
                                     movehero(sc);
                                     i[0]++;
@@ -446,28 +480,69 @@ public class HelloController {
                     );
                     movekarde.play();
                     Timeline chalnalaude = new Timeline(
-                            new KeyFrame(Duration.seconds(3), event3 -> {
-
+                            new KeyFrame(Duration.seconds(2), event3 -> {
                                 pa = chal_khel();
                             })
                     );
                     chalnalaude.play();
+                    Timeline butenable = new Timeline(
+                            new KeyFrame(Duration.seconds(5), event9 -> {
+//                                play_button.setDisable(false);
+                            })
+                    );
+                    butenable.play();
+
                 }
                 else{
                     if (score>=high_score){
                         high_score = score;
                     }
                     score = 0;
+                    Timeline chalnachamiye = new Timeline(
+                            new KeyFrame(Duration.seconds(1), event5 -> {
+                                stickend();
+                            })
+                    );
+                    chalnachamiye.play();
+                    Timeline nichegir = new Timeline(
+                            new KeyFrame(Duration.seconds(2), event5 -> {
+                                endseniche();
+                            })
+                    );
+                    nichegir.play();
+                    Timeline scorebata = new Timeline(
+                            new KeyFrame(Duration.seconds(3), event5 -> {
+                                switch_score();
+                            })
+                    );
+                    scorebata.play();
+
                 }
             }
         });
     }
 
+
+    public void stickend(){
+        TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
+        herobadha.setNode(hero);
+        herobadha.setFromX(dif);
+        herobadha.setToX(dif+bridge_stick.getHeight());
+        herobadha.play();
+    }
+    public void endseniche(){
+        TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
+        herobadha.setNode(hero);
+        herobadha.setFromY(163);
+        herobadha.setToY(900);
+        herobadha.play();
+    }
     public boolean check_collision(){
         int terimaki = 514-(last_right_kaX*-1);
         if ((33.5+left_waala.getWidth() + bridge_stick.getHeight() >= terimaki) && 33.5+left_waala.getWidth() + bridge_stick.getHeight() <= terimaki + right_wala.getWidth()){
             Timeline resetkar = new Timeline(
                     new KeyFrame(Duration.seconds(2), event -> {
+                        System.out.println("X: " + bridge_stick.getX() + ", Y: " + bridge_stick.getY());
                         reset_posi();
                     })
             );
@@ -483,25 +558,16 @@ public class HelloController {
             resetkar.play();
             return false;
         }
-//        int terimaki = 514-(last_right_kaX*-1);
-//        try (ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor()) {
-//            // Other code...
-//
-//            if ((33.5+left_waala.getWidth() + bridge_stick.getHeight() >= terimaki) && 33.5+left_waala.getWidth() + bridge_stick.getHeight() <= terimaki + right_wala.getWidth()){
-//                System.out.println("Collision detected, resetting position in 1 second");
-//                return true;
-//            }
-//            else {
-//                System.out.println("No collision, continue playing");
-//                return false;
-//            }
-//        }
     }
 
     public void reset_to_play(){
         score_page.setOpacity(0);
         circularButton.setDisable(true);
+    }
 
+
+    public void hero_flip(){
+        hero.setRotate(180);
     }
 
     public void button_hover(){
@@ -580,7 +646,7 @@ public class HelloController {
     }
 
     public Rectangle create_rectangle(int spacing){
-
+        hero.toFront();
         int w2 = random.nextInt(28,482-(36+widthy+28+spacing));
         if(36+widthy+w2+28+spacing>481){
             w2 = 481-(36+widthy+28+spacing);
