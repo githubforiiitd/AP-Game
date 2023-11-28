@@ -175,6 +175,12 @@ public class HelloController {
     @FXML
     public Text blinker;
 
+    @FXML
+    public Text flip2;
+
+    @FXML
+    public Rectangle flip1;
+
     public int fli = 0;
     @FXML
     public Text fliptxt;
@@ -203,6 +209,9 @@ public class HelloController {
 
     @FXML
     public Button play_button;
+
+    @FXML
+    public ImageView Cherry;
 
     @FXML
     public Text scored;
@@ -241,6 +250,7 @@ public class HelloController {
         flipbut.setOpacity(1);
         fliptxt.setOpacity(1);
     }
+
 
     public void Skore_badha(){
         score += 1;
@@ -390,7 +400,7 @@ public class HelloController {
         aane_waala_rect = xyz;
         left_waala = rl;
         right_wala = xyz;
-        last_right_kaX = (-(514+32-(36+widthy+42+spacing)));
+        last_right_kaX = (-(514-36-widthy-42-spacing));
         Timeline fliplo = new Timeline(
                 new KeyFrame(Duration.seconds(2), event3 -> {
                     fliplao();
@@ -444,10 +454,10 @@ public class HelloController {
         right_wala = xyz;
         play();
         sc = spacing;
-
+        create_cherry(-36-widthy-42-spacing,-36-left_waala.getWidth() );
         return spacing;
-//        movehero(spacing);
     }
+
 
     public void flip_kar(){
         hero.setOnKeyPressed(e -> {
@@ -496,6 +506,8 @@ public class HelloController {
                     play_button.toFront();
                     hero.toFront();
                     flip_button.toFront();
+                    flip1.toFront();
+                    flip2.toFront();
                     final Timeline[] rotatekaro = {new Timeline(
                             new KeyFrame(Duration.seconds(0.011), event2 -> {
                                 rotate_the_stick();
@@ -521,15 +533,16 @@ public class HelloController {
                                                 movehero(sc);
                                                 i[0]++;
                                             } else {
-                                                game_im_over();
+                                                game_abhi_over();
                                             }
-                                        } else {
+                                        }
+                                        else {
                                             if (hero.getRotate() == 0) {
                                                 play_button.setDisable(true);
                                                 flip_button.setDisable(false);
                                                 movehero(pa);
                                             } else {
-                                                game_im_over();
+                                                game_abhi_over();
                                             }
                                         }
 
@@ -553,14 +566,14 @@ public class HelloController {
                         }
                     }
                     else {
-                        game_im_over();
+                        game_abhi_over();
                     }
 
                 }
             });
         }
         else{
-            game_im_over();
+            game_abhi_over();
         }
     }
 
@@ -781,5 +794,13 @@ public class HelloController {
         rectangle.setFill(Color.web("#801c1c"));
         painal.getChildren().add(rectangle);
         return rectangle;
+    }
+    public void create_cherry(int spacing, double left){
+        play_button.toFront();
+        hero.toFront();
+        flip_button.toFront();
+        int ola = (int)left;
+        int cheryposi = random.nextInt(-ola+10,-spacing-40);
+        Cherry.setLayoutX(cheryposi);
     }
 }
