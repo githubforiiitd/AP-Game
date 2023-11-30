@@ -80,7 +80,7 @@
          </font>
       </Text>
       <Button fx:id="flip_button" layoutX="220.0" layoutY="753.0" mnemonicParsing="false" onAction="#flip_kar" opacity="0.0" text="Button" />
-      <ImageView fx:id="Cherry" fitHeight="26.0" fitWidth="20.0" layoutX="357.0" layoutY="619.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Cherry" fitHeight="26.0" fitWidth="20.0" layoutX="357.0" layoutY="619.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/pngimg.com%20-%20cherry_PNG3071.png" />
          </image>
