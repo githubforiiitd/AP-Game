@@ -230,7 +230,22 @@ public class HelloController {
     @FXML
     public Label highsc;
     Random random = new Random();
+    private Timeline checkHeroXCoordinateTimeline;
 
+
+    private boolean isPassingThrough(double currentX, double targetX, double tolerance) {
+        return currentX >= targetX - tolerance && currentX <= targetX + tolerance;
+    }
+
+    private void checkHeroXCoordinate() {
+        double heroX = hero.getLayoutX();
+        // Perform actions based on the hero's X coordinate
+        // For example, check if hero is passing through a specific X coordinate
+        if (isPassingThrough(heroX, 100, 5)) {
+            // Hero is passing through X coordinate 100
+            System.out.println("Hero is passing through X coordinate 100");
+        }
+    }
 
     public void restartApplication() {
         Platform.runLater(() -> {
@@ -310,6 +325,7 @@ public class HelloController {
         scoreUpdater.play();
     }
 
+
     public void movehero(int spacing){
         play_button.toFront();
         hero.toFront();
@@ -321,7 +337,7 @@ public class HelloController {
         double yolo = right_wala.getWidth() + right_wala.getWidth() - 64.5 ;
         herobadha.play();
         Timeline chalnalaude = new Timeline(
-                new KeyFrame(Duration.seconds(1), event3 -> {
+                new KeyFrame(Duration.seconds(2), event3 -> {
                     TranslateTransition heroghta = new TranslateTransition(Duration.seconds(1));
                     herobadha.setNode(hero);
                     dif = -hero.getLayoutX()  + left_waala.getWidth();
@@ -331,6 +347,12 @@ public class HelloController {
                 })
         );
         chalnalaude.play();
+
+        if(hero.intersects(Cherry.getBoundsInLocal()) && hero.getRotate()!=0 ){
+            score+=5;
+            Cherry.setOpacity(0);
+        }
+
         Timeline checkflip = new Timeline(
                 new KeyFrame(Duration.seconds(1), event5 ->{
                     if (hero.getRotate() == 0){
@@ -342,11 +364,26 @@ public class HelloController {
                 } )
         );
         checkflip.play();
+
+        Timeline chery_gaayab = new Timeline(
+                new KeyFrame(Duration.seconds(1), event5 ->{
+                    Cherry.setOpacity(0);
+                } )
+        );
+        chery_gaayab.play();
     }
     public void updatehighScoreLabel() {
         highsc.setText("High Score: " + String.valueOf(high_score));
     }
     public void neeche_jaa(ActionEvent e){
+        // Initialize and start the timeline to check hero's X coordinate every 100 milliseconds
+//        checkHeroXCoordinateTimeline = new Timeline(
+//                new KeyFrame(Duration.millis(100), event -> {
+////                    checkHeroXCoordinate();
+//                })
+//        );
+//        checkHeroXCoordinateTimeline.setCycleCount(Timeline.INDEFINITE);
+//        checkHeroXCoordinateTimeline.play();
         int score = 0;
         play_button.toFront();
         hero.toFront();
@@ -455,6 +492,12 @@ public class HelloController {
         play();
         sc = spacing;
         create_cherry(-36-widthy-42-spacing,-36-left_waala.getWidth() );
+        Timeline chalnalaude = new Timeline(
+                new KeyFrame(Duration.seconds(1), event11 -> {
+                    Cherry.setOpacity(1);
+                })
+        );
+        chalnalaude.play();
         return spacing;
     }
 
@@ -552,7 +595,7 @@ public class HelloController {
                             );
                             movekarde.play();
                             Timeline chalnalaude = new Timeline(
-                                    new KeyFrame(Duration.seconds(2), event3 -> {
+                                    new KeyFrame(Duration.seconds(3), event3 -> {
                                         pa = chal_khel();
                                         play_button.setDisable(false);
                                         flip_button.setDisable(true);
