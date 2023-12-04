@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="859.0" maxWidth="483.0" minHeight="859.0" minWidth="483.0" prefHeight="859.0" prefWidth="483.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stickkyyheeerooo.HelloController">
+    <children>
+        <ImageView fitHeight="859.0" fitWidth="483.0" layoutX="1.0" layoutY="1.0" opacity="0.38">
+            <image>
+                <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/wp4826982.jpg" />
+            </image>
+        </ImageView>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#801c1c" height="367.0" layoutX="36.0" layoutY="493.0" opacity="0.38" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#801c1c" height="367.0" layoutX="365.0" layoutY="493.0" opacity="0.38" stroke="BLACK" strokeType="INSIDE" width="71.0" />
+      <ImageView fitHeight="76.0" fitWidth="241.0" layoutX="142.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/NicePng_score-png_4068865.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="75.0" layoutY="753.0" strokeType="OUTSIDE" strokeWidth="3.0" text="START AGAIN!" wrappingWidth="400.476806640625">
+         <font>
+            <Font name="System Bold" size="53.0" />
+         </font>
+      </Text>
+        <Button fx:id="circularButton" layoutX="131.0" layoutY="488.0" onAction="#restartApplication" opacity="0" prefHeight="202.0" prefWidth="226.0">
+            <graphic>
+                <Circle fill="lightblue" radius="80.0" />
+            </graphic>
+        </Button>
+        <ImageView fx:id="Restart_image" fitHeight="156.0" fitWidth="159.0" layoutX="162.0" layoutY="510.0">
+            <image>
+                <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/replay.png" />
+            </image>
+        </ImageView>
+      <Label layoutX="199.0" layoutY="147.0" prefHeight="85.0" prefWidth="85.0">
+         <font>
+            <Font size="69.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
