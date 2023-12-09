@@ -1,3 +1,361 @@
+//package com.example.stickkyyheeerooo;
+//import javafx.animation.TranslateTransition;
+//import javafx.application.*;
+//import javafx.fxml.FXML;
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.control.Button;
+//
+//import java.io.IOException;
+//import java.net.URL;
+//import java.util.ArrayList;
+//import java.util.ResourceBundle;
+//import javafx.application.Platform;
+//import javafx.event.ActionEvent;
+//import javafx.scene.control.Label;
+//import javafx.animation.SequentialTransition;
+//import javafx.event.ActionEvent;
+//import javafx.scene.Scene;
+//import javafx.scene.layout.Pane;
+//import javafx.scene.paint.Color;
+//import javafx.scene.shape.Line;
+//import javafx.scene.transform.Rotate;
+//import javafx.stage.Stage;
+//
+//import javafx.animation.PathTransition;
+//
+//import javafx.animation.Interpolator;
+//
+//import javafx.fxml.FXML;
+//import javafx.scene.shape.LineTo;
+//import javafx.scene.shape.MoveTo;
+//import javafx.scene.shape.Path;
+//import javafx.scene.shape.Rectangle;
+//import javafx.scene.transform.Rotate;
+//import javafx.util.Duration;
+//import javafx.animation.Timeline;
+//import javafx.fxml.FXML;
+//import javafx.scene.control.Button;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.shape.Rectangle;
+//import javafx.util.Duration;
+//import javafx.fxml.FXML;
+//import javafx.scene.control.Button;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.shape.Rectangle;
+//import javafx.animation.KeyFrame;
+//import javafx.animation.Timeline;
+//import javafx.util.Duration;
+//import javafx.animation.RotateTransition;
+//import javafx.scene.shape.Rectangle;
+//import javafx.util.Duration;
+//import javafx.animation.RotateTransition;
+//import javafx.fxml.FXML;
+//import javafx.scene.shape.Rectangle;
+//import javafx.util.Duration;
+//import java.util.Random;
+//import javafx.animation.RotateTransition;
+//import javafx.event.ActionEvent;
+//import javafx.scene.input.KeyCode;
+//import javafx.animation.KeyFrame;
+//import javafx.animation.Timeline;
+//import javafx.util.Duration;
+//
+//import javafx.animation.KeyFrame;
+//import javafx.animation.Timeline;
+//import javafx.scene.paint.Color;
+//import javafx.fxml.FXML;
+//import javafx.fxml.Initializable;
+//import java.util.concurrent.Executors;
+//import java.util.concurrent.ScheduledExecutorService;
+//import java.util.concurrent.TimeUnit;
+//
+//import javafx.scene.control.Button;
+//import javafx.scene.layout.Pane;
+//import javafx.scene.shape.Rectangle;
+//import javafx.util.Duration;
+//import java.net.URL;
+//import java.util.ResourceBundle;
+//import javafx.fxml.FXML;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.input.KeyEvent;
+//import javafx.scene.shape.Rectangle;
+//import javafx.event.ActionEvent;
+//import javafx.scene.shape.Circle;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
+//import javafx.application.Application;
+//import javafx.scene.Group;
+//import javafx.event.ActionEvent;
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.Parent;
+//import javafx.scene.Scene;
+//import javafx.scene.shape.Rectangle;
+//import javafx.scene.text.Text;
+//import javafx.stage.Stage;
+//import javafx.scene.Scene;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
+//import javafx.application.Application;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Button;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.layout.StackPane;
+//import javafx.scene.paint.Color;
+//import javafx.scene.shape.Rectangle;
+//import javafx.stage.Stage;
+//import javafx.stage.Stage;
+//import javafx.stage.Stage;
+//import javafx.scene.Parent;
+//import javafx.scene.Scene;
+//import javafx.event.ActionEvent;
+//import javafx.fxml.FXMLLoader;
+//import javafx.animation.KeyFrame;
+//import javafx.animation.Timeline;
+//import javafx.application.Application;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Label;
+//import javafx.stage.Stage;
+//import javafx.util.Duration;
+//import javafx.animation.ParallelTransition;
+//import javafx.scene.Parent;
+//import javafx.scene.Scene;
+//import javafx.stage.Stage;
+//import javafx.util.Duration;
+//import javafx.animation.Animation;
+//import javafx.animation.FadeTransition;
+//import javafx.application.Application;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Label;
+//import javafx.scene.layout.StackPane;
+//import javafx.stage.Stage;
+//import javafx.util.Duration;
+//
+//
+//
+//public class HelloController {
+//    @FXML
+//    public ImageView hero;
+//    @FXML
+//    private Label welcomeText;
+//
+//    private Stage stage;
+//    private Scene scene;
+//    public double dif = 0;
+//
+//    @FXML
+//    public Button circularButton;
+//
+//    @FXML
+//    public Button flip_button;
+//    @FXML
+//    public ImageView Restart_image;
+//
+//    @FXML
+//    private Rectangle rl;
+//    @FXML
+//    private Rectangle rr;
+//    @FXML
+//    public Button sb;
+//    @FXML
+//    public ImageView start_image;
+//    @FXML
+//    public Text blink;
+//
+//    @FXML
+//    private Pane painal;
+//    @FXML
+//    public Text game_title;
+//
+//    @FXML
+//    public Text flip2;
+//
+//    @FXML
+//    public Rectangle flip1;
+//
+//    @FXML
+//    public Label score_page;
+//    public int last_rect_width = 71;
+//
+//    @FXML
+//    public Rectangle stick;
+//
+//    @FXML
+//    public Rectangle left_rect = rl;
+//
+//    @FXML
+//    public Rectangle right_rect = rr;
+//
+//    @FXML
+//    public Button play_button;
+//
+//    @FXML
+//    public ImageView Cherry;
+//
+//    @FXML
+//    public Text scored;
+//
+//    public int score = 0;
+//    public int high_score = 0;
+//
+//    @FXML
+//    public Rectangle bridge_stick;
+//
+//    @FXML
+//    public Label Scorebata;
+//    @FXML
+//    public Label highsc;
+//    public double ola = 0;
+//
+//
+//    class hero_acc{
+//        public void pass_bridge(int spacing){
+//            TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
+//            herobadha.setNode(hero);
+//            herobadha.setFromX(36 + left_rect.getWidth());
+//            herobadha.setToX(36 + left_rect.getWidth() + spacing + right_rect.getWidth());
+//            double yolo = 36 + left_rect.getWidth() + spacing + right_rect.getWidth();
+//            herobadha.play();
+//            Timeline back_to_base = new Timeline(
+//                    new KeyFrame(Duration.seconds(2), event3 -> {
+//                        TranslateTransition heroghta = new TranslateTransition(Duration.seconds(1));
+//                        herobadha.setNode(hero);
+//                        herobadha.setFromX(yolo);
+//                        herobadha.setToX(36 + left_rect.getWidth());
+//                        herobadha.play();
+//                    })
+//            );
+//            back_to_base.play();
+//        }
+//
+//        public void hero_over(){
+//            TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
+//            herobadha.setNode(hero);
+//            herobadha.setFromX(36 + left_rect.getWidth());
+//            herobadha.setToX(left_rect.getWidth() + bridge_stick.getHeight());
+//            herobadha.play();
+//            Timeline fall_down = new Timeline(
+//                    new KeyFrame(Duration.seconds(2), event3 -> {
+//                        TranslateTransition heroghta = new TranslateTransition(Duration.seconds(1));
+//                        herobadha.setNode(hero);
+//                        herobadha.setFromY(163);
+//                        herobadha.setToX(900);
+//                        herobadha.play();
+//                    })
+//            );
+//            fall_down.play();
+//        }
+//    }
+//
+//    class Rect{
+//        Random random = new Random();
+//        public void game_continue() {
+//            TranslateTransition betic = new TranslateTransition();
+//            betic.setDuration(Duration.millis(1000));
+//            betic.setNode(left_rect);
+//            betic.setFromX(36 - (int) left_rect.getX());
+//            betic.setToX(-300 - (int) left_rect.getX());
+//            betic.play();
+//
+//            // Right wale ko left jagah pe daalega
+//            TranslateTransition PKMB = new TranslateTransition();
+//            PKMB.setDuration(Duration.millis(1000));
+//            PKMB.setNode(right_rect);
+//            int rx = (int) right_rect.getX();
+//            PKMB.setFromX(ola);
+//            PKMB.setToX(36 - rx);
+//            PKMB.play();
+//            left_rect = right_rect;
+//
+//            // Enters new Rect
+//            int spacing = random.nextInt(42, 350 - (36 + last_rect_width + 28));//yeh change kara hai
+//            Rectangle new_rect = create_rectangle(spacing);
+//            TranslateTransition xxx = new TranslateTransition();
+//            xxx.setDuration(Duration.millis(1000));
+//            xxx.setNode(new_rect);
+//            xxx.setFromX(0);
+//            xxx.setByX(-(514 - 36 - last_rect_width - 42 - spacing));
+//            ola = -(514 - 36 - last_rect_width - 42 - spacing);
+//            xxx.play();
+//            right_rect = new_rect;
+////            create_cherry(-36-widthy-42-spacing,-36-left_waala.getWidth() );
+////            Timeline chalnalaude = new Timeline(
+////                    new KeyFrame(Duration.seconds(1), event11 -> {
+////                        Cherry.setOpacity(1);
+////                    })
+////            );
+////            chalnalaude.play();
+//        }
+//
+//        public Rectangle create_rectangle(int spacing){
+//            int w2 = random.nextInt(28,482-(36+last_rect_width+28+spacing));
+//            if(36+last_rect_width+w2+28+spacing>481){
+//                w2 = 481-(36+last_rect_width+28+spacing);
+//            }
+//            if(w2>=200){
+//                w2 = 100;
+//            }
+//            last_rect_width = w2;
+//            int layx = 514;
+//            Rectangle rectangle = new Rectangle(514,606,w2,253);
+//            rectangle.setFill(Color.web("#801c1c"));
+//            painal.getChildren().add(rectangle);
+//            return rectangle;
+//        }
+//
+//    }
+//
+//    class stickk{
+//        @FXML
+//        private Rectangle bridge_stick;
+//
+//        public stickk(){
+//        }
+//        public void stick_increase(){
+//            bridge_stick.setHeight(bridge_stick.getHeight()+10);
+//            bridge_stick.setY(bridge_stick.getY()-10);
+//        }
+//        public void reset_posi(){
+//            play_button.toFront();
+//            hero.toFront();
+//            flip_button.toFront();
+//            Rotate r1 = new Rotate();
+//            r1.setPivotX(bridge_stick.getX());
+//            r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
+//            bridge_stick.getTransforms().add(r1);
+//            r1.setAngle(-90);
+//
+//            bridge_stick.setY(0);
+//            bridge_stick.setX(left_rect.getWidth()-2.5);
+//            bridge_stick.setHeight(0);
+//        }
+//
+//        public void rotate_the_stick(){
+//            Rotate r1 = new Rotate();
+//            r1.setPivotX(bridge_stick.getX());
+//            r1.setPivotY(bridge_stick.getY()+bridge_stick.getHeight()-2.5);
+//            bridge_stick.getTransforms().add(r1);
+//            r1.setAngle(1);
+//        }
+//    }
+//
+//
+//    public void play_game(){
+//        bridge_stick.setX(left_rect.getWidth() - 2.5);
+//        bridge_stick.requestFocus();
+//        bridge_stick.setFocusTraversable(true);
+//
+//
+//        Timeline increaseTimeline = new Timeline(
+//                new KeyFrame(Duration.millis(50), event -> {
+//                    stickk.stick_increase();
+//                })
+//        );
+//    }
+//    public void initialize_game(){
+//        stickk stick = new stickk();
+//    }
+
+
 package com.example.stickkyyheeerooo;
 import javafx.animation.TranslateTransition;
 import javafx.application.*;
@@ -221,6 +579,7 @@ public class HelloController {
     public int score = 0;
     public int pa = 0;
     public int high_score = 0;
+    public boolean flipped = false;
 
     @FXML
     public Rectangle bridge_stick;
@@ -230,19 +589,40 @@ public class HelloController {
     @FXML
     public Label highsc;
     Random random = new Random();
+    private Timeline checkHeroXCoordinateTimeline;
 
+
+    private boolean isPassingThrough(double currentX, double targetX, double tolerance) {
+        return currentX >= targetX - tolerance && currentX <= targetX + tolerance;
+    }
+
+    private void checkHeroXCoordinate() {
+        double heroX = hero.getLayoutX();
+        // Perform actions based on the hero's X coordinate
+        // For example, check if hero is passing through a specific X coordinate
+        if (isPassingThrough(heroX, 100, 5)) {
+            // Hero is passing through X coordinate 100
+            System.out.println("Hero is passing through X coordinate 100");
+        }
+    }
 
     public void restartApplication() {
         Platform.runLater(() -> {
             try {
                 // Create a new instance of the application and start it
                 new HelloApplication().start(new Stage());
-//                stage.setScene(scene);
-//                stage.show();
+                stage.setScene(scene);
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void fliplao(){
+//        flipbox.setOpacity(1);
+//        flipbut.setOpacity(1);
+//        fliptxt.setOpacity(1);
     }
 
 
@@ -327,7 +707,7 @@ public class HelloController {
         );
         chalnalaude.play();
 
-        if(hero.intersects(Cherry.getBoundsInLocal()) && hero.getRotate()!=0 ){
+        if(hero.intersects(Cherry.getBoundsInLocal()) && flipped){
             score+=5;
             Cherry.setOpacity(0);
         }
@@ -355,6 +735,14 @@ public class HelloController {
         highsc.setText("High Score: " + String.valueOf(high_score));
     }
     public void neeche_jaa(ActionEvent e){
+        // Initialize and start the timeline to check hero's X coordinate every 100 milliseconds
+//        checkHeroXCoordinateTimeline = new Timeline(
+//                new KeyFrame(Duration.millis(100), event -> {
+////                    checkHeroXCoordinate();
+//                })
+//        );
+//        checkHeroXCoordinateTimeline.setCycleCount(Timeline.INDEFINITE);
+//        checkHeroXCoordinateTimeline.play();
         int score = 0;
         play_button.toFront();
         hero.toFront();
@@ -409,6 +797,12 @@ public class HelloController {
         left_waala = rl;
         right_wala = xyz;
         last_right_kaX = (-(514-36-widthy-42-spacing));
+        Timeline fliplo = new Timeline(
+                new KeyFrame(Duration.seconds(2), event3 -> {
+                    fliplao();
+                })
+        );
+        fliplo.play();
     }
     public int chal_khel(){
         play_button.toFront();
@@ -481,9 +875,9 @@ public class HelloController {
             hero.setRotate(0);
             hero.setY(0);
             fli-=1;
+            flipped = false;
         }
     }
-
     public void play(){
         if (hero.getRotate()==0) {
             play_button.toFront();
@@ -609,6 +1003,7 @@ public class HelloController {
         scorebata.play();
     }
 
+
     public void game_abhi_over(){
         endseniche();
         Timeline scorebata = new Timeline(
@@ -675,11 +1070,24 @@ public class HelloController {
         }
     }
 
+    public void reset_to_play(){
+        score_page.setOpacity(0);
+        circularButton.setDisable(true);
+    }
+
 
     public void hero_flip(){
-        System.out.println(hero.getLayoutX());
+        flipped = true;
         hero.setY(29.5);
         hero.setRotate(180);
+    }
+
+    public void button_hover(){
+        laura.setOpacity(0.5);
+    }
+
+    public void button_hover_exit(){
+        laura.setOpacity(1);
     }
 
 
@@ -759,7 +1167,7 @@ public class HelloController {
         play_button.toFront();
         hero.toFront();
         flip_button.toFront();
-        int w2 = random.nextInt(28,482-(36+widthy+28+spacing));
+        int w2 = random.nextInt(28,482-(36+widthy+28+spacing)-100);
         if(36+widthy+w2+28+spacing>481){
             w2 = 481-(36+widthy+28+spacing);
         }
@@ -774,22 +1182,11 @@ public class HelloController {
         return rectangle;
     }
     public void create_cherry(int spacing, double left){
-        System.out.println((last_right_kaX + 514));
-        System.out.println("left: "+ left);
         play_button.toFront();
         hero.toFront();
         flip_button.toFront();
-        int ola = -(int) left;
-        int pola = last_right_kaX+514;
-        try {
-            if ((pola - ola) > 30) {
-                int cheryposi = random.nextInt(ola + 20, pola - ola);
-                Cherry.setLayoutX(cheryposi);
-            } else {
-                Cherry.setOpacity(0);
-            }
-        }catch(Exception e){
-
-        }
+        int ola = (int)left;
+        int cheryposi = random.nextInt(-ola+10,-spacing-40);
+        Cherry.setLayoutX(cheryposi);
     }
-}     
+}
