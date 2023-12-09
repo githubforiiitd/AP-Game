@@ -154,6 +154,9 @@ public class HelloController {
 
     @FXML
     public Button flip_button;
+
+    @FXML
+    public Label score123;
     @FXML
     public ImageView Restart_image;
 
@@ -199,6 +202,15 @@ public class HelloController {
     public Rectangle stick;
 
     @FXML
+    public Text revive_text;
+
+    @FXML
+    public ImageView revive_image;
+
+    @FXML
+    public ImageView restart_image;
+
+    @FXML
     public Rectangle left_waala = rl;
 
     int last_right_kaX= 0 ;
@@ -221,9 +233,18 @@ public class HelloController {
     public int score = 0;
     public int pa = 0;
     public int high_score = 0;
+    public boolean flipped = false;
 
     @FXML
     public Rectangle bridge_stick;
+
+    @FXML
+    public Button restart_button;
+
+    @FXML
+    public Button revive_button;
+
+    public boolean scoredd  = false;
 
     @FXML
     public Label Scorebata;
@@ -247,7 +268,7 @@ public class HelloController {
         }
     }
 
-    public void restartApplication() {
+    public void restartApplication(ActionEvent a) {
         Platform.runLater(() -> {
             try {
                 // Create a new instance of the application and start it
@@ -261,9 +282,9 @@ public class HelloController {
     }
 
     public void fliplao(){
-        flipbox.setOpacity(1);
-        flipbut.setOpacity(1);
-        fliptxt.setOpacity(1);
+//        flipbox.setOpacity(1);
+//        flipbut.setOpacity(1);
+//        fliptxt.setOpacity(1);
     }
 
 
@@ -298,6 +319,10 @@ public class HelloController {
         Scorebata.setText(String.valueOf(score));
     }
 
+    public void updatescore(int scor){
+        score123.setText(String.valueOf((2)));
+    }
+
     public void end_pe_score(Label scorePageLabel) {
         Timeline scoreUpdater = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> {
@@ -327,43 +352,28 @@ public class HelloController {
 
 
     public void movehero(int spacing){
-        play_button.toFront();
-        hero.toFront();
-        flip_button.toFront();
-        TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
-        herobadha.setNode(hero);
-        herobadha.setFromX(dif);
-        herobadha.setToX(spacing + right_wala.getWidth() + right_wala.getWidth() - 64.5);
-        double yolo = right_wala.getWidth() + right_wala.getWidth() - 64.5 ;
-        herobadha.play();
-        Timeline chalnalaude = new Timeline(
-                new KeyFrame(Duration.seconds(2), event3 -> {
-                    TranslateTransition heroghta = new TranslateTransition(Duration.seconds(1));
-                    herobadha.setNode(hero);
-                    dif = -hero.getLayoutX()  + left_waala.getWidth();
-                    herobadha.setFromX(spacing + yolo);
-                    herobadha.setToX(dif);
-                    herobadha.play();
+        double step = 10; // Adjust the step size as needed
+        double targetX = spacing + right_wala.getWidth() + right_wala.getWidth() - 64.5;
+
+// Move the hero to the right
+        Timeline aage = new Timeline(
+                new KeyFrame(Duration.seconds(0.01), event12 ->{
+                    if (hero.getX() <= targetX) {
+                        hero.setX(hero.getX() + 3);
+                        if (!scoredd){
+                            System.out.println("flip: " + flipped + "       inter: " + hero.intersects(Cherry.getBoundsInLocal()));
+                            if (hero.intersects(Cherry.getBoundsInLocal()) && flipped){
+                                score+=5;
+                                Cherry.setOpacity(0);
+                                scoredd = true;
+                            }
+                        }
+                    }
                 })
         );
-        chalnalaude.play();
+        aage.setCycleCount(100);
+        aage.play();
 
-        if(hero.intersects(Cherry.getBoundsInLocal()) && hero.getRotate()!=0 ){
-            score+=5;
-            Cherry.setOpacity(0);
-        }
-
-        Timeline checkflip = new Timeline(
-                new KeyFrame(Duration.seconds(1), event5 ->{
-                    if (hero.getRotate() == 0){
-                        int po = 0;
-                    }
-                    else{
-                        game_abhi_over();
-                    }
-                } )
-        );
-        checkflip.play();
 
         Timeline chery_gaayab = new Timeline(
                 new KeyFrame(Duration.seconds(1), event5 ->{
@@ -376,14 +386,7 @@ public class HelloController {
         highsc.setText("High Score: " + String.valueOf(high_score));
     }
     public void neeche_jaa(ActionEvent e){
-        // Initialize and start the timeline to check hero's X coordinate every 100 milliseconds
-//        checkHeroXCoordinateTimeline = new Timeline(
-//                new KeyFrame(Duration.millis(100), event -> {
-////                    checkHeroXCoordinate();
-//                })
-//        );
-//        checkHeroXCoordinateTimeline.setCycleCount(Timeline.INDEFINITE);
-//        checkHeroXCoordinateTimeline.play();
+        Cherry.setY(26);
         int score = 0;
         play_button.toFront();
         hero.toFront();
@@ -463,6 +466,7 @@ public class HelloController {
         play_button.toFront();
         hero.toFront();
         flip_button.toFront();
+
         // Right wale ko left jagah pe daalega
         TranslateTransition PKMB = new TranslateTransition();
         PKMB.setDuration(Duration.millis(1000));
@@ -470,8 +474,9 @@ public class HelloController {
         int rx = (int)right_wala.getX();
         PKMB.setFromX(last_right_kaX);
         PKMB.setToX(36-rx);
-        PKMB.play();
         left_waala = right_wala;
+        hero.setX(left_waala.getWidth() - 94);
+        PKMB.play();
 
         // Enters new Rect
         play_button.toFront();
@@ -516,6 +521,7 @@ public class HelloController {
             hero.setRotate(0);
             hero.setY(0);
             fli-=1;
+            flipped = false;
         }
     }
     public void play(){
@@ -578,6 +584,7 @@ public class HelloController {
                                                 movehero(sc);
                                                 i[0]++;
                                             } else {
+                                                updatescore(score);
                                                 game_abhi_over();
                                             }
                                         }
@@ -606,7 +613,6 @@ public class HelloController {
                             if (score >= high_score) {
                                 high_score = score;
                             }
-                            score = 0;
                             game_over();
                         }
                     }
@@ -637,29 +643,43 @@ public class HelloController {
         nichegir.play();
         Timeline scorebata = new Timeline(
                 new KeyFrame(Duration.seconds(3), event1 -> {
-                    switch_score();
+                    restart_image.toFront();
+                    revive_image.toFront();
+                    revive_text.toFront();
+                    revive_button.toFront();
+                    restart_button.toFront();
+
+                    restart_image.setOpacity(1);
+                    revive_image.setOpacity(1);
+                    revive_text.setOpacity(1);
+
+                    restart_button.setDisable(false);
+                    revive_button.setDisable(false);
                 })
         );
         scorebata.play();
     }
 
-    public void game_im_over(){
-        System.out.println("idhar aagae");
-        stickkebich();
+    public void revive(ActionEvent e){
+        restart_image.setOpacity(0);
+        revive_image.setOpacity(0);
+        revive_text.setOpacity(0);
 
-        Timeline nichegir = new Timeline(
-                new KeyFrame(Duration.seconds(1), event5 -> {
-                    endseniche();
-                })
-        );
-        nichegir.play();
+        restart_button.setDisable(true);
+        revive_button.setDisable(true);
 
-        Timeline scorebata = new Timeline(
-                new KeyFrame(Duration.seconds(2), event6 -> {
-                    switch_score();
-                })
-        );
-        scorebata.play();
+        System.out.println("X: " + hero.getX() + "     Layout: " + hero.getLayoutX());
+        TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
+        herobadha.setNode(hero);
+        herobadha.setFromY(900);
+        herobadha.setToY(140);
+        herobadha.play();
+        TranslateTransition herobadhaa = new TranslateTransition(Duration.seconds(1));
+        herobadhaa.setNode(hero);
+        herobadhaa.setFromX(94+bridge_stick.getHeight());
+        herobadhaa.setToX(dif);
+        herobadhaa.play();
+        chal_khel();
     }
 
 
@@ -667,7 +687,18 @@ public class HelloController {
         endseniche();
         Timeline scorebata = new Timeline(
                 new KeyFrame(Duration.seconds(1), event6 -> {
-                    switch_score();
+                    revive_button.toFront();
+                    restart_button.toFront();
+
+                    restart_image.setOpacity(1);
+                    revive_image.setOpacity(1);
+                    revive_text.setOpacity(1);
+
+                    restart_button.setOpacity(1);
+                    revive_button.setOpacity(1);
+
+                    restart_button.setDisable(false);
+                    revive_button.setDisable(false);
                 })
         );
         scorebata.play();
@@ -683,16 +714,6 @@ public class HelloController {
         herobadha.play();
     }
 
-    public void stickkebich(){
-        play_button.toFront();
-        hero.toFront();
-        flip_button.toFront();
-        TranslateTransition herobadha = new TranslateTransition(Duration.seconds(1));
-        herobadha.setNode(hero);
-        herobadha.setFromX(dif);
-        herobadha.setToX(dif+40);
-        herobadha.play();
-    }
     public void endseniche(){
         play_button.toFront();
         hero.toFront();
@@ -736,7 +757,7 @@ public class HelloController {
 
 
     public void hero_flip(){
-        System.out.println(hero.getLayoutX());
+        flipped = true;
         hero.setY(29.5);
         hero.setRotate(180);
     }
@@ -826,7 +847,7 @@ public class HelloController {
         play_button.toFront();
         hero.toFront();
         flip_button.toFront();
-        int w2 = random.nextInt(28,482-(36+widthy+28+spacing));
+        int w2 = random.nextInt(28,482-(36+widthy+28+spacing)-100);
         if(36+widthy+w2+28+spacing>481){
             w2 = 481-(36+widthy+28+spacing);
         }
