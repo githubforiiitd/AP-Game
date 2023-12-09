@@ -80,10 +80,27 @@
          </font>
       </Text>
       <Button fx:id="flip_button" layoutX="220.0" layoutY="753.0" mnemonicParsing="false" onAction="#flip_kar" opacity="0.0" text="Button" />
-      <ImageView fx:id="Cherry" fitHeight="26.0" fitWidth="20.0" layoutX="357.0" layoutY="619.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Cherry" fitHeight="26.0" fitWidth="20.0" layoutX="357.0" layoutY="619.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" y="26.0">
          <image>
             <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/pngimg.com%20-%20cherry_PNG3071.png" />
          </image>
       </ImageView>
+      <Button fx:id="revive_button" disable="true" layoutX="36.0" layoutY="436.0" mnemonicParsing="false" onAction="#revive" opacity="0.0" prefHeight="92.0" prefWidth="178.0" text="Revive" />
+      <Button fx:id="restart_button" disable="true" layoutX="268.0" layoutY="436.0" mnemonicParsing="false" onAction="#restartApplication" onKeyPressed="#restartApplication" opacity="0.0" prefHeight="92.0" prefWidth="178.0" text="Restart" />
+      <ImageView fx:id="restart_image" fitHeight="92.0" fitWidth="185.0" layoutX="265.0" layoutY="436.0" opacity="0.0">
+         <image>
+            <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/images.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="revive_image" fitHeight="120.0" fitWidth="185.0" layoutX="31.0" layoutY="430.0" opacity="0.0">
+         <image>
+            <Image url="file:/Users/aryanbansal/Downloads/StickkyyHeeerooo/src/main/java/com/example/stickkyyheeerooo/xiiungc5dxq81.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="revive_text" fill="WHITE" layoutX="81.0" layoutY="579.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Revive" wrappingWidth="93.41373786224779">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
